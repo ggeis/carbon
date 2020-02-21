@@ -2,12 +2,14 @@ import React from 'react';
 import { select, text } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import PopoverContainer from './popover-container.component';
-import Button from '../button';
 
 export default {
   component: PopoverContainer,
   title: 'Design System/Popover Container',
-  parameters: { info: { disable: true } }
+  parameters: {
+    info: { disable: true },
+    knobs: { escapeHTML: false }
+  }
 };
 
 export const basic = () => {

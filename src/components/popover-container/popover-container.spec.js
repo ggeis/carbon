@@ -11,8 +11,9 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 describe('PopoverContainer', () => {
   jest.useFakeTimers();
-  let wrapper,
-      preventDefault;
+  let wrapper;
+  let preventDefault;
+
   beforeEach(() => {
     preventDefault = jest.fn();
 
