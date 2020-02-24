@@ -4,9 +4,9 @@ import Events from '../../utils/helpers/events';
 import StyledIconButton from './icon-button.style';
 import Icon from '../icon';
 
-const IconButton = ({ onAction, children, ...rest }) => {
+const IconButton = React.forwardRef((({ onAction, children, ...rest }, ref) => {
   const onKeyDown = (e) => {
-    if (Events.isEnterKey(e) || Events.isSpaceKey(e) || Events.isEscKey(e)) {
+    if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
       e.preventDefault();
       onAction(e);
     } else {
@@ -23,11 +23,12 @@ const IconButton = ({ onAction, children, ...rest }) => {
       { ...rest }
       onKeyDown={ onKeyDown }
       onClick={ handleOnAction }
+      ref={ ref }
     >
       { children }
     </StyledIconButton>
   );
-};
+}));
 
 IconButton.propTypes = {
   /** Children prop is restricted to one Icon Component */
