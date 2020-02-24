@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Icon from '../icon';
 import { baseTheme } from '../../style/themes';
+import IconButton from '../icon-button';
 
 const PopoverContainerWrapperStyle = styled.div`
   position: relative;
@@ -10,14 +10,8 @@ const PopoverContainerWrapperStyle = styled.div`
   height: 40px;
 `;
 
-const PopoverContainerIcon = styled(Icon)`
-  width: 40px;
-  height: 40px;
-  color: ${({ theme }) => theme.colors.black};
-
-  &:focus{
-    outline: 2px solid ${({ theme }) => theme.colors.focus};
-  }
+const PopoverContainerIcon = styled(IconButton)`
+  position: static;
 `;
 
 const PopoverContainerHeaderStyle = styled.div`
@@ -61,9 +55,9 @@ const PopoverContainerContentStyle = styled.div`
   }}
 `;
 
-const PopoverContainerCloseIcon = styled(Icon)`
+const PopoverContainerCloseIcon = styled(IconButton)`
+  position: static;
   margin-right: -16px;
-  color: ${({ theme }) => theme.colors.black};
 `;
 
 const PopoverContainerTitle = styled.div`

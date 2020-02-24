@@ -12,11 +12,8 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 describe('PopoverContainer', () => {
   jest.useFakeTimers();
   let wrapper;
-  let preventDefault;
 
   beforeEach(() => {
-    preventDefault = jest.fn();
-
     wrapper = mount(<PopoverContainer
       title='Popover Container Settings'
       iconType='settings'
@@ -39,7 +36,7 @@ describe('PopoverContainer', () => {
         iconType='settings'
       />);
 
-      wrapper.find(PopoverContainerIcon).props().onClick();
+      wrapper.find(PopoverContainerIcon).props().onAction();
     });
 
     wrapper.update();
@@ -55,27 +52,12 @@ describe('PopoverContainer', () => {
         title='Popover Container Settings'
         iconType='settings'
       />);
-      wrapper.find(PopoverContainerIcon).props().onKeyDown({ which: keycode, preventDefault });
+
+      wrapper.find(PopoverContainerIcon).props().onAction({ which: keycode });
     });
 
     wrapper.update();
-    expect(preventDefault).toHaveBeenCalled();
     expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(expected);
-  });
-
-  it('should not open the popover container if different than Enter or Space key clicked', () => {
-    act(() => {
-      wrapper = mount(<PopoverContainer
-        title='Popover Container Settings'
-        iconType='settings'
-      />);
-
-      wrapper.find(PopoverContainerIcon).props().onKeyDown({ which: 27 /** 'escape' key */, preventDefault });
-    });
-
-    wrapper.update();
-    expect(preventDefault).not.toHaveBeenCalled();
-    expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(false);
   });
 
   it('should close the popover popover container if close Icon clicked', () => {
@@ -85,69 +67,18 @@ describe('PopoverContainer', () => {
         iconType='settings'
       />);
 
-      wrapper.find(PopoverContainerIcon).props().onClick();
+      wrapper.find(PopoverContainerIcon).props().onAction();
     });
 
     wrapper.update();
 
     act(() => {
-      wrapper.find(PopoverContainerCloseIcon).props().onClick();
+      wrapper.find(PopoverContainerCloseIcon).props().onAction();
       jest.runAllTimers();
     });
 
     wrapper.update();
     expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(false);
-    jest.clearAllTimers();
-  });
-
-  it.each([
-    ['enter', 13, false],
-    ['space', 32, false]
-  ])('should close the popover container if %s clicked', (keyname, keycode, expected) => {
-    act(() => {
-      wrapper = mount(<PopoverContainer
-        title='Popover Container Settings'
-        iconType='settings'
-      />);
-
-      wrapper.find(PopoverContainerIcon).props().onClick();
-    });
-
-    wrapper.update();
-
-    act(() => {
-      wrapper.find(PopoverContainerCloseIcon).props().onKeyDown({ which: keycode, preventDefault });
-      jest.runAllTimers();
-    });
-
-    wrapper.update();
-
-    expect(preventDefault).toHaveBeenCalled();
-    expect(wrapper.find(PopoverContainerCloseIcon).exists()).toBe(expected);
-    jest.clearAllTimers();
-  });
-
-  it('should not close the popover container if close Icon clicked', () => {
-    act(() => {
-      wrapper = mount(<PopoverContainer
-        title='Popover Container Settings'
-        iconType='settings'
-      />);
-
-      expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(false);
-      wrapper.find(PopoverContainerIcon).props().onClick();
-    });
-
-    wrapper.update();
-
-    act(() => {
-      wrapper.find(PopoverContainerCloseIcon).props().onKeyDown({ which: 82 /** 'r' key */, preventDefault });
-      jest.runAllTimers();
-    });
-
-    wrapper.update();
-    expect(preventDefault).not.toHaveBeenCalled();
-    expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
     jest.clearAllTimers();
   });
 });
@@ -164,6 +95,16 @@ describe('PopoverContainerContentStyle', () => {
     const wrapper = mount(<PopoverContainerContentStyle />);
     assertStyleMatch({
       left: '0'
+    }, wrapper);
+  });
+
+  it('should render correct style of animation state', () => {
+    const wrapper = mount(<PopoverContainerContentStyle animationState='entered' />);
+
+    assertStyleMatch({
+      opacity: '1',
+      transform: 'translateY(0)',
+      transition: 'all 0.3s cubic-bezier(0.25,0.25,0,1.5)'
     }, wrapper);
   });
 });

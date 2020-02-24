@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Transition } from 'react-transition-group';
-import Events from '../../utils/helpers/events/events';
 import {
   PopoverContainerWrapperStyle,
   PopoverContainerIcon,
@@ -10,6 +9,7 @@ import {
   PopoverContainerCloseIcon,
   PopoverContainerTitle
 } from './popover-container.style';
+import Icon from '../icon';
 
 const PopoverContainer = ({
   children, iconType, title, position
@@ -19,7 +19,7 @@ const PopoverContainer = ({
   const closeIconRef = useRef();
 
   useEffect(() => {
-    if (isOpen) closeIconRef.current.getTarget().focus();
+    if (isOpen) closeIconRef.current.focus();
   });
 
   const handleOpen = () => {
@@ -28,21 +28,7 @@ const PopoverContainer = ({
 
   const handleClose = () => {
     setOpen(false);
-    iconRef.current.getTarget().focus();
-  };
-
-  const handleOpenKeyDown = (ev) => {
-    if (Events.isEnterOrSpaceKey(ev)) {
-      ev.preventDefault();
-      handleOpen();
-    }
-  };
-
-  const handleCloseKeyDown = (ev) => {
-    if (Events.isEnterOrSpaceKey(ev)) {
-      ev.preventDefault();
-      handleClose();
-    }
+    iconRef.current.focus();
   };
 
   return (
@@ -51,10 +37,10 @@ const PopoverContainer = ({
         ref={ iconRef }
         data-element='popover-container-icon'
         tabIndex={ isOpen ? -1 : 0 }
-        type={ iconType }
-        onClick={ handleOpen }
-        onKeyDown={ handleOpenKeyDown }
-      />
+        onAction={ handleOpen }
+      >
+        <Icon type={ iconType } />
+      </PopoverContainerIcon>
       <Transition
         in={ isOpen }
         timeout={ { exit: 300 } }
@@ -76,10 +62,11 @@ const PopoverContainer = ({
                 data-element='popover-container-close-icon'
                 type='close'
                 tabIndex='0'
-                onClick={ handleClose }
-                onKeyDown={ handleCloseKeyDown }
+                onAction={ handleClose }
                 ref={ closeIconRef }
-              />
+              >
+                <Icon type='close' />
+              </PopoverContainerCloseIcon>
             </PopoverContainerHeaderStyle>
             {children}
           </PopoverContainerContentStyle>
