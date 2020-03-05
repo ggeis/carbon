@@ -127,6 +127,11 @@ export default (palette) => {
       disabled: 'rgba(0,0,0,0.30)'
     },
 
+    numeralDate: {
+      passive: '#668592',
+      error: '#C7384F'
+    },
+
     portrait: {
       border: palette.slateTint(50),
       background: palette.slateTint(95),

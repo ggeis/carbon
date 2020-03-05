@@ -1,0 +1,24 @@
+import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import NumeralDate from '.';
+
+<Meta title="Design System/NumeralDate" />
+
+# NumeralDate
+
+<Preview>
+  <Story name="default" parameters={{ info: { disable: true }}} >
+    <NumeralDate defaultValue="NumeralDate" dateFormat={['dd','mm','yyyy']}/>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="custom" parameters={{ info: { disable: true }}} >
+    <NumeralDate defaultValue="NumeralDate" dateFormat={['mm','yyyy','dd']}/>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story id="experimental-NumeralDate--default" parameters={{ info: { disable: true }}} />
+</Preview>
+
+<Props of={NumeralDate} />
