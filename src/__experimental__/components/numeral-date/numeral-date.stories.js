@@ -2,7 +2,8 @@ import React from 'react';
 import {
   array,
   boolean,
-  withKnobs
+  withKnobs,
+  text
 } from '@storybook/addon-knobs';
 import { Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
@@ -26,8 +27,8 @@ export const Basic = () => {
     value: ''
   });
 
-  const handleChange = (ev) => {
-    store.set({ value: ev.target.value });
+  const handleChange = (ev, itemId) => {
+    store.set({ [itemId]: ev.target.value });
     action('change')(ev);
   };
 
@@ -35,12 +36,13 @@ export const Basic = () => {
     action('blur')(ev);
   };
 
-  const dateFormat = array('dateFormat', ['dd', 'mm', 'yyyy']);
+  const dateFormat = array('dateFormat', NumeralDate.defaultProps.dateFormat);
 
   return (
     <NumeralDate
       onChange={ handleChange }
-      errorState={ boolean('errorState') }
+      // errorState={ boolean('errorState') }
+      errorMessage={ text('errorMessage', 'Invalid format (DD/MM/YYYY)') }
       onBlur={ handleBlur }
       dateFormat={ dateFormat }
       value={ store.get('value') }

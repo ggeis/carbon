@@ -1,34 +1,42 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
+import { ThemeProvider } from 'styled-components';
 // import { act } from 'react-dom/test-utils';
 // import { Input } from '../input';
+import mintTheme from '../../../style/themes/mint';
 import NumeralDate from './numeral-date.component';
 import { StyledDateField } from './numeral-date.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-// import StyledTextInput from '../input/input-presentation.style';
+import StyledTextInput from '../input/input-presentation.style';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('NumeralDate', () => {
   let wrapper, onBlur, onChange, onKeyDown;
 
-  const renderWrapper = (props, render = shallow) => (
-    render(
-      <NumeralDate
-        { ...props }
-      />
-    )
-  );
+  const renderWrapper = (props, render = shallow) => {
+    const defaultProps = { value: '12', dateFormat: ['dd', 'mm', 'yyyy'] };
+    return (
+      render(
+        <ThemeProvider theme={ mintTheme }>
+          <NumeralDate
+            { ...defaultProps }
+            { ...props }
+          />
+        </ThemeProvider>
+
+      ));
+  };
   describe('styles', () => {
     it('matches the expected styles', () => {
       assertStyleMatch({
         display: 'inline-flex',
         fontSize: '14px',
         fontWeight: '400'
-      }, renderWrapper({ dateFormat: ['dd', 'mm', 'yyyy'] }, mount));
+      }, renderWrapper({ }, mount));
     });
 
     it('matches the expected styles when the input is focused', () => {
-      wrapper = renderWrapper({ dateFormat: ['dd'] }, mount);
+      wrapper = renderWrapper({ value: '12', dateFormat: ['dd'] }, mount);
       const input = wrapper.find('input');
       input.simulate('focus');
       assertStyleMatch({
@@ -36,27 +44,28 @@ describe('NumeralDate', () => {
       }, wrapper);
     });
 
-    it('matches the expected styles when the input is active', () => {
-      wrapper = renderWrapper({ dateFormat: ['dd', 'mm', 'yyyy'] }, mount);
-      assertStyleMatch({
+    // it('applies the expected styling to the input', () => {
+    //   wrapper = renderWrapper({ }, mount);
+    //   assertStyleMatch({
+    //     width: '375px',
+    //     fontSize: '14px',
+    //     fontWeight: '700'
+    //   }, wrapper);
+    // });
 
-      }, wrapper);
-    });
-
-    it('applies the expected styling to the input', () => {
-      wrapper = renderWrapper({ dateFormat: ['dd', 'mm', 'yyyy'] }, mount);
+    it('applies the expected styling when component hasError', () => {
+      wrapper = renderWrapper({ hasError: true }, mount);
       assertStyleMatch({
-        width: '375px',
         fontSize: '14px',
-        fontWeight: '700'
-      }, wrapper, { modifier: `${StyledDateField}` });
+        fontWeight: '400'
+      }, wrapper);
     });
   });
 
   describe('Clicking off the component', () => {
     it('calls onBlur', () => {
       onBlur = jest.fn();
-      wrapper = renderWrapper({ dateFormat: ['dd', 'mm', 'yyyy'], onBlur }, mount);
+      wrapper = renderWrapper({ dateFormat: ['dd'], onBlur }, mount);
       const input = wrapper.find('input');
       input.simulate('blur');
       expect(onBlur).toHaveBeenCalled();
@@ -69,7 +78,12 @@ describe('NumeralDate', () => {
       onChange = jest.fn();
       onBlur = jest.fn();
       wrapper = renderWrapper({
-        dateFormat: ['dd', 'mm', 'yyyy'], onBlur, onChange, onKeyDown, id: 'Search', name: 'Search'
+        dateFormat: ['dd', 'mm', 'yyyy'],
+        onBlur,
+        onChange,
+        onKeyDown,
+        id: 'numeralDate_id',
+        name: 'numeralDate_name'
       }, mount);
     });
 
@@ -100,7 +114,7 @@ describe('NumeralDate', () => {
     it('validates children prop types', () => {
       jest.spyOn(global.console, 'error').mockImplementation(() => {});
       mount(
-        <NumeralDate value='' dateFormat={ ['dd', 'mm', 'yyyy', 'mmmm'] } />
+        <NumeralDate value='' dateFormat={ ['dd', 'mm', 'yyyy', 'mm'] } />
       );
       expect(console.error).toHaveBeenCalledWith(
         'Warning: Failed prop type: dateFormat array be no greater than three.\n    in NumeralDate'
@@ -111,7 +125,7 @@ describe('NumeralDate', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      const wrapperWithTags = shallow(<NumeralDate value='' />);
+      const wrapperWithTags = shallow(<NumeralDate dateFormat={ ['dd', 'mm', 'yyyy'] } value='' />);
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapperWithTags, 'search');
       });

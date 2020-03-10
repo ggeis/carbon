@@ -5,20 +5,18 @@ import NumeralDate from '.';
 
 # NumeralDate
 
+Default Date Format
 <Preview>
   <Story name="default" parameters={{ info: { disable: true }}} >
     <NumeralDate defaultValue="NumeralDate" dateFormat={['dd','mm','yyyy']}/>
   </Story>
 </Preview>
 
+Custom Date Format
 <Preview>
   <Story name="custom" parameters={{ info: { disable: true }}} >
-    <NumeralDate defaultValue="NumeralDate" dateFormat={['mm','yyyy','dd']}/>
+    <NumeralDate defaultValue="NumeralDate" dateFormat={['mm','dd','yyyy']}/>
   </Story>
-</Preview>
-
-<Preview>
-  <Story id="experimental-NumeralDate--default" parameters={{ info: { disable: true }}} />
 </Preview>
 
 <Props of={NumeralDate} />

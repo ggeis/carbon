@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import invariant from 'invariant';
 import Events from '../../../utils/helpers/events';
+import DateHelper from '../../../utils/helpers/date';
 import StyledNumeralDate, { StyledDateField } from './numeral-date.style';
 import Textbox from '../textbox';
 
@@ -9,9 +10,10 @@ const NumeralDate = ({
   dateFormat,
   defaultValue,
   errorMessage,
-  errorState,
+  // errorState,
   id,
   name,
+  onBlur,
   onChange,
   placeholder,
   value
@@ -24,14 +26,30 @@ const NumeralDate = ({
   );
 
   let inputRef = useRef();
-  const [errorSate, setErrorState] = useState(false);
+  const [isActive, setIsActive] = useState(inputRef.current === document.activeElement);
+  const [errorState, setErrorState] = useState(false);
   const [dateValue, setDateValue] = useState({
     dd: '', mm: '', yyyy: ''
-  }); // value date textbox field.
+  }); // value date textbox field
 
-  // eslint-disable-next-line consistent-return
+  // For validating dates
+  const handleDateValidation = () => {
+    const { dd, mm, yyyy } = dateValue;
+    const dateIsEmpty = !yyyy.length || !mm.length || !dd.length;
+    const dateValueString = dateIsEmpty ? '' : `${yyyy}-${mm}-${dd}`;
+
+    if (!dateIsEmpty) {
+      if (!DateHelper.isValidDate(dateValueString)) {
+        setErrorState(true);
+      } else setErrorState(false);
+    }
+  };
+
   const isValidKeyPress = (ev) => {
-    if (Events.isNumberKey(ev) || Events.isDeletingKey(ev) || Events.isTabKey(ev)) return true;
+    if (Events.isNumberKey(ev) || Events.isDeletingKey(ev) || Events.isTabKey(ev)) {
+      return true;
+    }
+    return false;
   };
 
   const onKeyPress = (ev) => {
@@ -49,17 +67,34 @@ const NumeralDate = ({
     }
   };
 
+  const handleOnFocus = () => {
+    setIsActive(true);
+  };
+
+  const handleBlur = (ev) => {
+    setIsActive(false);
+    handleDateValidation();
+    if (onBlur) {
+      onBlur({ name: ev.target.name, id: ev.target.id, value: { ...dateValue } });
+    }
+  };
+
+
   return (
     <>
       <StyledNumeralDate
         name={ name }
         id={ id }
+        isActive={ isActive }
+        onBlur={ handleBlur }
+        onFocus={ handleOnFocus }
+        onKeyPress={ onKeyPress }
       >
         {
           dateFormat.map((datePart, i) => (
             <StyledDateField
               key={ datePart }
-              placeholder={ datePart }
+              isYearInput={ datePart.length === 4 }
               isMiddle={ i === 1 }
               isEnd={ i === 2 }
               errorState={ errorState }
@@ -68,13 +103,13 @@ const NumeralDate = ({
                 placeholder={ datePart }
                 value={ dateValue[datePart] }
                 inputRef={ (e) => { inputRef = e; } }
-                onKeyPress={ onKeyPress }
                 onChange={ e => handleChange(e, datePart) }
                 hasError={ errorState }
+                onBlur={ handleBlur }
                 {
-                ...(i === 2 && {
+                ...((i === 2 && errorState) && {
                   inputIcon: 'error',
-                  tooltipMessage: 'errorState: true'
+                  tooltipMessage: errorMessage
                 })
                 }
               />
@@ -101,7 +136,9 @@ NumeralDate.propTypes = {
   /** Prop for errorState. */
   errorState: PropTypes.bool,
   /** Prop for `controlled` use */
-  value: PropTypes.arrayOf(PropTypes.number),
+  value: PropTypes.string,
+  /** Prop for `onBlur` events */
+  onBlur: PropTypes.func,
   /** Prop for `onChange` events */
   onChange: PropTypes.func,
   /** Prop for `id` events */
@@ -112,4 +149,17 @@ NumeralDate.propTypes = {
   placeholder: PropTypes.string
 };
 
+NumeralDate.defaultProps = { dateFormat: ['dd', 'mm', 'yyyy'] };
+
 export default NumeralDate;
+
+// // have an array of inputRefs
+// // pass in ref[i] to each textbox
+// // in onBlur check if Events.composedPath(e).includes(any of the refs) e.stopPropagation()
+// onBlur={ (e) => {
+//   if (refs.some(ref => Events.composedPath(e).includes(ref.current))) {
+//     e.stopPropagation();
+//   } else {
+//     refs.forEach(r => console.log(r.current));
+//   }
+// } }

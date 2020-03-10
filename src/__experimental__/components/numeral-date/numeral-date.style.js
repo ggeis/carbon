@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import StyledToolTip from '../../../components/tooltip/tooltip-pointer.style';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import StyledIconSpan from '../input-icon-toggle/input-icon-toggle.style';
 import { baseTheme } from '../../../style/themes';
 import StyledFormField from '../form-field/form-field.style';
@@ -27,17 +27,21 @@ export default StyledNumeralDate;
 export const StyledDateField = styled.div`
 
     ${StyledInput} {
-        z-index: 100;
-        width: ${({ placeholder }) => (placeholder === 'yyyy' ? '78px;' : '58px;')};
+        position: relative;
+        width: ${({ isYearInput }) => (isYearInput ? '78px;' : '58px;')};
         text-align: center;
-
         ${({ isMiddle }) => isMiddle && `
             border-left: none;
             border-right: none;
+            :focus {
+                border-left: 1px;
+                border-right: 1px;
+            }
         `}
 
         border-color: ${({ theme, errorState }) => (
-    errorState ? `${theme.numeralDate.error}` : `${theme.numeralDate.passive}`)}; 
+    // eslint-disable-next-line indent
+            errorState ? `${theme.numeralDate.error}` : `${theme.numeralDate.passive}`)}; 
     }
 
     ${StyledIcon} {
@@ -52,8 +56,9 @@ export const StyledDateField = styled.div`
         width: 32px;
     }
 
-    ${StyledToolTip} {
+    ${StyledValidationIcon} {
         margin-left: 0px;
+        padding: 0px;
     }
 
 `;
