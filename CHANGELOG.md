@@ -1,3 +1,103 @@
+### [13.9.1](https://github.com/Sage/carbon/compare/v13.9.0...v13.9.1) (2020-03-10)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** close button styling ([13e31ef](https://github.com/Sage/carbon/commit/13e31ef4861645a5865cc757749152498b90c260))
+
+## [13.9.0](https://github.com/Sage/carbon/compare/v13.8.0...v13.9.0) (2020-03-09)
+
+
+### Features
+
+* **radio-button:** add support for inline radio buttons/legend ([6af3ff6](https://github.com/Sage/carbon/commit/6af3ff609a5b646492e21abd22c4ff8c22478010))
+
+## [13.8.0](https://github.com/Sage/carbon/compare/v13.7.1...v13.8.0) (2020-03-09)
+
+
+### Features
+
+* **draggable:** add new component ([c3acd71](https://github.com/Sage/carbon/commit/c3acd71d44ad5de09e4599e4ab0f935d0270907c))
+* **draggable:** add propTypes support ([ce961c4](https://github.com/Sage/carbon/commit/ce961c42cd95bbcc74cffd3c063c88afd81479ad))
+* **draggable:** back item to original position ([089fe50](https://github.com/Sage/carbon/commit/089fe50db10d282524516a75f167aae6db734bf6))
+* **draggable:** callback run on correct drop ([4dc0818](https://github.com/Sage/carbon/commit/4dc0818c2effdf9569134c595399eee546bbc6a7))
+* **draggable:** fix lint ([69ae840](https://github.com/Sage/carbon/commit/69ae840294901c8c8d7133fb7fe6633b07c74176))
+* **draggable:** make props to be optional ([1cd9f64](https://github.com/Sage/carbon/commit/1cd9f648f089fb592420ae3d08bc8d30dd0d3077))
+* **draggable:** rename property ([5469027](https://github.com/Sage/carbon/commit/5469027f4b119009313c8474f404bf62f0857ec6))
+
+### [13.7.1](https://github.com/Sage/carbon/compare/v13.7.0...v13.7.1) (2020-03-09)
+
+
+### Bug Fixes
+
+* **dialog:** close button styling ([f156763](https://github.com/Sage/carbon/commit/f156763575f462d2b7908daf2060e274c8f636d9))
+
+## [13.7.0](https://github.com/Sage/carbon/compare/v13.6.2...v13.7.0) (2020-03-05)
+
+
+### Features
+
+* **flat-table:** add clickable row functionality ([0e11e22](https://github.com/Sage/carbon/commit/0e11e2211c81c831ce52be1c7920b1aa1234d1f8))
+
+### [13.6.2](https://github.com/Sage/carbon/compare/v13.6.1...v13.6.2) (2020-03-03)
+
+
+### Bug Fixes
+
+* **storybook:** enable theme selector on Windows ([ecfbb17](https://github.com/Sage/carbon/commit/ecfbb17229b1a8aa4753e1f8c187a9dde3c93d1a))
+
+### [13.6.1](https://github.com/Sage/carbon/compare/v13.6.0...v13.6.1) (2020-03-02)
+
+
+### Bug Fixes
+
+* **checkbox:** fix incorrect key assignment in checkbox story ([e5566cf](https://github.com/Sage/carbon/commit/e5566cfc509589cf46c30f56909daefbce8f2515))
+* **checkbox:** restore proper checkbox behaviour in validations story ([b49f633](https://github.com/Sage/carbon/commit/b49f633b9e30bb8a947b4010538ebbb4136b86ee))
+
+## [13.6.0](https://github.com/Sage/carbon/compare/v13.5.1...v13.6.0) (2020-02-27)
+
+
+### Features
+
+* **textbox based components:** update readonly styling ([a1c7499](https://github.com/Sage/carbon/commit/a1c74993862c0f724504e6f87f7b4085dc9077ea))
+
+### [13.5.1](https://github.com/Sage/carbon/compare/v13.5.0...v13.5.1) (2020-02-27)
+
+
+### Performance Improvements
+
+* **storybook:** solve action event serialization performance issues ([f9de61a](https://github.com/Sage/carbon/commit/f9de61aa5cc5741b84f018a241c438e4820885cb))
+
+## [13.5.0](https://github.com/Sage/carbon/compare/v13.4.0...v13.5.0) (2020-02-26)
+
+
+### Features
+
+* **accordion:** create accordion component ([e494ceb](https://github.com/Sage/carbon/commit/e494cebd27314031d71b8803d6b99f81d2567501))
+
+## [13.4.0](https://github.com/Sage/carbon/compare/v13.3.2...v13.4.0) (2020-02-24)
+
+
+### Features
+
+* **icon-button:** new component to be used in place of close icon ([53b2404](https://github.com/Sage/carbon/commit/53b2404b1bde6510958751dfefe9e69fa3971197))
+
+### [13.3.2](https://github.com/Sage/carbon/compare/v13.3.1...v13.3.2) (2020-02-24)
+
+
+### Bug Fixes
+
+* **menu-item:** fixed style regression ([187b4df](https://github.com/Sage/carbon/commit/187b4df3e780423e9741dbb241ce6e630c84d10e))
+
+### [13.3.1](https://github.com/Sage/carbon/compare/v13.3.0...v13.3.1) (2020-02-21)
+
+
+### Bug Fixes
+
+* **pager:** add singular/plural default translations for records ([ffaf35c](https://github.com/Sage/carbon/commit/ffaf35c1ebe630582b94626fea3cb7d6111723d5))
+* **pager:** remove whitespace from translation template ([4e4c746](https://github.com/Sage/carbon/commit/4e4c7464f9258a656e0f55a6d05dbe3706a842b3))
+* **pager:** use page size value for translation of page size ([c608a5b](https://github.com/Sage/carbon/commit/c608a5be451e4fa617c05d43657c333bdc807708))
+
 ## [13.3.0](https://github.com/Sage/carbon/compare/v13.2.2...v13.3.0) (2020-02-20)
 
 
