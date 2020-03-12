@@ -32,6 +32,7 @@ export const characterLimitSlider = () => cy.get(CHARACTER_LIMIT);
 export const dlsRoot = () => cy.iFrame(DLS_ROOT);
 export const storyRoot = () => cy.iFrame(STORY_ROOT);
 export const commonButtonPreview = () => storyRoot().find('button');
+export const commonButtonPreviewNoIFrameRoot = () => cy.get(DLS_ROOT).find('button');
 export const commonInputPreview = () => storyRoot().find('input');
 export const labelPreview = () => storyRoot().find('label').first();
 export const label = () => cy.iFrame(LABEL);
@@ -41,6 +42,7 @@ export const helpIconByPosition = position => cy.iFrame(HELP_ICON_PREVIEW).eq(po
 export const tooltipPreview = () => cy.iFrame(TOOLTIP_PREVIEW);
 export const tooltipPreviewByPosition = position => cy.iFrame(TOOLTIP_PREVIEW).eq(position);
 export const fieldHelpPreview = () => cy.iFrame(FIELD_HELP_PREVIEW).first();
+export const fieldHelp = () => cy.iFrame(FIELD_HELP_PREVIEW);
 export const fieldHelpPreviewByPosition = position => cy.iFrame(FIELD_HELP_PREVIEW).eq(position);
 export const closeIconButton = () => cy.iFrame(CLOSE_ICON_BUTTON);
 export const backgroundUILocator = () => cy.iFrame(BACKGROUND_UI_LOCATOR);

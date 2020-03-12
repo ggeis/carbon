@@ -10,7 +10,7 @@ module.exports = {
     '@storybook/addon-a11y/register',
     '@storybook/addon-docs',
     '@storybook/addon-google-analytics/register',
-    path.resolve(__dirname, 'theme-selector/register'),
+    './.storybook/theme-selector/register',
   ],
   webpackFinal: async (config, { configType }) => {
     config.module.rules.push(
@@ -18,6 +18,7 @@ module.exports = {
         test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']
       }
     );
+  
     config.resolve = {
       alias: {
         helpers: path.resolve(__dirname, '__helpers__/')
