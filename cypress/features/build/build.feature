@@ -198,3 +198,8 @@ Feature: Build tests
   Scenario: Component Draggable basic default page and verify data-element
     When I open basic Test "Draggable" component page in noIframe
     Then "draggable" element is visible
+
+  @build
+  Scenario: Component Grid full default page
+    When I open "Test Grid" component page full in iframe
+    Then "grid" component is visible

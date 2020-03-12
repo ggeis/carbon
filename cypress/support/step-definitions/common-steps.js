@@ -44,6 +44,10 @@ Given('I open in full screen Test {string} component page in noIframe', (compone
   visitComponentUrl(component, 'in_full_screen_dialog', true, 'test-');
 });
 
+Given('I open {string} component page full in iframe', (component) => {
+  visitComponentUrl(component, 'full', true);
+});
+
 Given('I open {string} component page buttonToogleGroup validation in iframe', (component) => {
   visitComponentUrl(component, 'buttonToogleGroup', true);
 });
