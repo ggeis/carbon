@@ -1,0 +1,82 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import Fieldset from './';
+import { RadioButton, RadioButtonGroup } from '../radio-button';
+import { Select } from '../select';
+import Textbox from '../textbox';
+
+<Meta
+  title="Design System/Fieldset"
+  parameters={{ info: { disable: true }}}
+/>
+
+### Primary
+Primary version of accordion has white background and a border.
+<Preview>
+  <Story name="basic">
+    <div>
+      <RadioButtonGroup groupName="address" legend="Contact's address" inline labelInline labelAlign="right">
+        <RadioButton value="previous" label="Use previously saved address"/>
+        <RadioButton value="new" label="Enter a new address"/>
+      </RadioButtonGroup>
+      <Select enableMultiSelect label="Address Type" labelInline labelAlign="right">
+        <Option
+          key="main"
+          text="Main"
+          value="main"
+        />
+        <Option
+          key="billing"
+          text="Billing"
+          value="billing"
+        />
+      </Select>
+      <Select label=" " labelInline labelWidth={ 80 } inputWidth={ 20 } defaultValue={ 'uk' }>
+        <Option
+          key="us"
+          text="US"
+          value="us"
+        />
+        <Option
+          key="uk"
+          text="UK & Ireland"
+          value="uk"
+        />
+      </Select>
+      <Fieldset>
+        <Textbox
+          label='Address line 1'
+          labelInline
+          labelAlign='right'
+          labelWidth={ 30 }
+        />
+        <Textbox
+          label='Address line 2'
+          labelInline
+          labelAlign='right'
+        />
+        <Textbox
+          label='Town/City'
+          labelInline
+          labelAlign='right'
+        />
+        <Textbox
+          label='County'
+          labelInline
+          labelAlign='right'
+        />
+        <Textbox
+          label='Country'
+          labelInline
+          labelAlign='right'
+        />
+        <Textbox
+          label='Postcode'
+          labelInline
+          labelAlign='right'
+          inputWidth={ 20 }
+        />
+      </Fieldset>
+    </div>
+  </Story>
+</Preview>
