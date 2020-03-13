@@ -5,10 +5,7 @@ import StyledIcon from '../icon/icon.style';
 
 const PopoverContainerWrapperStyle = styled.div`
   position: relative;
-  border: none;
-  padding: 0;
-  width: 40px;
-  height: 40px;
+  display: inline-block;
 `;
 
 const PopoverContainerIcon = styled(IconButton)`
@@ -30,7 +27,8 @@ const PopoverContainerContentStyle = styled.div`
   padding: 16px 24px;
   min-width: 300px;
   position: absolute;
-  top: 0;
+  
+  ${({ hasStickyTop }) => hasStickyTop && 'top: 0'}
 
   ${({ position }) => (position === 'left' ? 'right: 0' : 'left: 0')};
 
