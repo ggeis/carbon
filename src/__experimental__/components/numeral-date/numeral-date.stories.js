@@ -11,7 +11,7 @@ import NumeralDate from '.';
 import Textbox from '../textbox';
 
 export default {
-  title: 'Test/Numeral-date',
+  title: 'Test/Numeral Date',
   component: NumeralDate,
   decorators: [withKnobs],
   parameters: {
@@ -41,7 +41,7 @@ export const Basic = () => {
   return (
     <NumeralDate
       onChange={ handleChange }
-      // errorState={ boolean('errorState') }
+      errorPresent={ boolean('errorPresent') }
       errorMessage={ text('errorMessage', 'Invalid format (DD/MM/YYYY)') }
       onBlur={ handleBlur }
       dateFormat={ dateFormat }

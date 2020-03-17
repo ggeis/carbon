@@ -3,19 +3,41 @@ import NumeralDate from '.';
 
 <Meta title="Design System/NumeralDate" />
 
-# NumeralDate
+# Numeral Date
 
 Default Date Format
 <Preview>
-  <Story name="default" parameters={{ info: { disable: true }}} >
-    <NumeralDate defaultValue="NumeralDate" dateFormat={['dd','mm','yyyy']}/>
+  <Story name="Default" parameters={{ info: { disable: true }}} >
+    <NumeralDate defaultValue="Numeral Date" dateFormat={['dd','mm','yyyy']}/>
   </Story>
 </Preview>
 
 Custom Date Format
 <Preview>
-  <Story name="custom" parameters={{ info: { disable: true }}} >
-    <NumeralDate defaultValue="NumeralDate" dateFormat={['mm','dd','yyyy']}/>
+  <Story name="Custom" parameters={{ info: { disable: true }}} >
+    <NumeralDate defaultValue="Numeral Date" dateFormat={['mm','dd','yyyy']}/>
+  </Story>
+</Preview>
+
+Default Numeral Date Component has Error
+<Preview>
+  <Story name="Numeral Date Error" parameters={{ info: { disable: true }}} >
+    <NumeralDate 
+    defaultValue="Numeral Date" 
+    dateFormat={['dd','mm','yyyy']} 
+    errorPresent
+    errorMessage={'This is an error message. It alerts the user to an error.'}/>
+  </Story>
+</Preview>
+
+Custom Numeral Date Component has Error
+<Preview>
+  <Story name="Custom Numeral Date Error" parameters={{ info: { disable: true }}} >
+    <NumeralDate 
+    defaultValue="Numeral Date" 
+    dateFormat={['yyyy','mm','dd']} 
+    errorPresent
+    errorMessage={'This is an error message. It alerts the user to an error.'}/>
   </Story>
 </Preview>
 
