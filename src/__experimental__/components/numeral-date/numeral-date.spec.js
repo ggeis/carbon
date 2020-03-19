@@ -13,7 +13,7 @@ describe('NumeralDate', () => {
   let wrapper, onBlur, onChange, onKeyDown;
 
   const renderWrapper = (props, render = shallow) => {
-    const defaultProps = { value: '12', dateFormat: ['dd', 'mm', 'yyyy'] };
+    const defaultProps = { value: { dd: '12', mm: '', yyyy: '' }, dateFormat: ['dd', 'mm', 'yyyy'] };
     return (
       render(
         <ThemeProvider theme={ mintTheme }>
@@ -35,8 +35,12 @@ describe('NumeralDate', () => {
       }, renderWrapper({ }, mount));
     });
 
-    it('matches the expected styles when the input is focused', () => {
-      wrapper = renderWrapper({ value: '12', dateFormat: ['dd'] }, mount);
+    it('applies the expected styling when component has focus', () => {
+      wrapper = renderWrapper({
+        value: { dd: '03' },
+        dateFormat: ['dd'],
+        isActive: true
+      }, mount);
       const input = wrapper.find('input');
       input.simulate('focus');
       assertStyleMatch({
@@ -44,10 +48,28 @@ describe('NumeralDate', () => {
     });
 
     it('applies the expected styling when component has an error', () => {
-      wrapper = renderWrapper({ value: '23', dateFormat: ['dd'], errorPresent: true }, mount);
+      wrapper = renderWrapper({
+        value: { dd: '03', mm: '03', yyyy: '2003' },
+        dateFormat: ['yyyy', 'mm', 'dd'],
+        errorPresent: true
+      }, mount);
       assertStyleMatch({
         fontSize: '14px',
-        fontWeight: '400'
+        fontWeight: '400',
+        border: '1px solid transparent'
+      }, wrapper);
+    });
+
+    it('applies the expected styling when component has an error and component consists of two textboxes', () => {
+      wrapper = renderWrapper({
+        value: { dd: '03', mm: '03' },
+        dateFormat: ['dd', 'mm'],
+        errorPresent: true
+      }, mount);
+      assertStyleMatch({
+        fontSize: '14px',
+        fontWeight: '400',
+        border: '1px solid transparent'
       }, wrapper);
     });
   });
@@ -83,6 +105,32 @@ describe('NumeralDate', () => {
         input.simulate('change', { target: { value: '45' } });
       });
       expect(onChange).toHaveBeenCalled();
+    });
+  });
+
+  describe('supports being a uncontrolled component', () => {
+    it('accepts a default value', () => {
+      onKeyDown = jest.fn();
+      onChange = jest.fn();
+      onBlur = jest.fn();
+      const props = {
+        dateFormat: ['dd'],
+        defaultValue: { dd: '30' },
+        onBlur,
+        onChange,
+        onKeyDown,
+        id: 'numeralDate_id',
+        name: 'numeralDate_name'
+      };
+      wrapper = mount(
+        <ThemeProvider theme={ mintTheme }>
+          <NumeralDate
+            { ...props }
+          />
+        </ThemeProvider>
+      );
+      const input = wrapper.find('input');
+      expect(input.props().value).toEqual('30');
     });
   });
 
@@ -137,7 +185,9 @@ describe('NumeralDate', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      const wrapperWithTags = shallow(<NumeralDate dateFormat={ ['dd', 'mm', 'yyyy'] } value='13' />);
+      const wrapperWithTags = shallow(
+        <NumeralDate dateFormat={ ['dd', 'mm', 'yyyy'] } value={ { dd: '12', mm: '', yyyy: '' } } />
+      );
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapperWithTags.find(StyledNumeralDate), 'numeral-date');
       });

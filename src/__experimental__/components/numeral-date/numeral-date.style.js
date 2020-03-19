@@ -28,18 +28,30 @@ export const StyledDateField = styled.div`
 
   ${StyledInput} {
       position: relative;
-      width: ${({ isYearInput, isEnd, errorPresent }) => (
+      width: ${({
+    isYearInput, isMiddle, isEnd, errorPresent
+  }) => (
     // eslint-disable-next-line indent
-        isYearInput || (isEnd && errorPresent) ? '78px;' : '58px;')};
+        isYearInput || (isEnd && errorPresent) || (isMiddle && errorPresent) ? '78px;' : '58px;')};
       text-align: center;
-      ${({ isMiddle }) => isMiddle && css`
-        border-left: none;
-        border-right: none;
-        :focus {
-            border-left: 1px;
-            border-right: 1px;
-          }
-       `}
+
+      ${({ isMiddle, dateFormatLength }) => css`
+        ${(isMiddle && dateFormatLength === 3) && css`
+          border-left: none;
+          border-right: none;
+          :focus {
+              border-left: 1px;
+              border-right: 1px;
+            }
+        `}
+        ${(isMiddle && dateFormatLength < 3) && css`
+          border-left: 1px;
+          :focus {
+              border-left: 1px;
+              border-right: 1px;
+            }
+        `}
+      `}
 
      border-color: ${({ theme, errorPresent }) => (
     // eslint-disable-next-line indent

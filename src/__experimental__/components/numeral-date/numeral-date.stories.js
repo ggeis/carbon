@@ -24,7 +24,7 @@ export default {
 
 export const Basic = () => {
   const store = new Store({
-    value: ''
+    value: { dd: '', mm: '', yyyy: '' }
   });
 
   const handleChange = (ev, itemId) => {

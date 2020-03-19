@@ -19,14 +19,14 @@ const NumeralDate = ({
   const isControlled = value !== undefined;
   const initialValue = isControlled ? value : defaultValue;
   invariant(
-    typeof initialValue === 'string',
+    initialValue !== undefined,
     'This component has no initial value'
   );
 
   let inputRef = useRef();
   const [isActive, setIsActive] = useState(inputRef.current === document.activeElement);
   const [dateValue, setDateValue] = useState({
-    dd: '', mm: '', yyyy: ''
+    ...initialValue
   });
 
   const isValidKeyPress = (ev) => {
@@ -81,6 +81,7 @@ const NumeralDate = ({
               isMiddle={ i === 1 }
               isEnd={ i === 2 }
               errorPresent={ errorPresent }
+              dateFormatLength={ dateFormat.length }
             >
               <Textbox
                 placeholder={ datePart }
@@ -90,7 +91,7 @@ const NumeralDate = ({
                 hasError={ errorPresent }
                 onBlur={ handleBlur }
                 {
-                ...((i === 2 && errorPresent) && {
+                ...((((datePart.length === 4 && i === 2) || (i === 1)) && errorPresent) && {
                   inputIcon: 'error',
                   tooltipMessage: errorMessage
                 })
@@ -107,13 +108,21 @@ NumeralDate.propTypes = {
   /** Prop array string to define custom layout. Use a comma to seperate values. */
   dateFormat: PropTypes.arrayOf(PropTypes.string),
   /** Prop for `uncontrolled` use */
-  defaultValue: PropTypes.number,
+  defaultValue: PropTypes.shape({
+    dd: PropTypes.string,
+    mm: PropTypes.string,
+    yyyy: PropTypes.string
+  }),
   /** Prop for errorMessage string. */
   errorMessage: PropTypes.string,
   /** Prop for errorPresent. */
   errorPresent: PropTypes.bool,
   /** Prop for `controlled` use */
-  value: PropTypes.string,
+  value: PropTypes.shape({
+    dd: PropTypes.string,
+    mm: PropTypes.string,
+    yyyy: PropTypes.string
+  }),
   /** Prop for `onBlur` events */
   onBlur: PropTypes.func,
   /** Prop for `onChange` events */
