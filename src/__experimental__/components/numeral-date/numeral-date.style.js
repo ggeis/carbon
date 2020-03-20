@@ -75,3 +75,4 @@ export const StyledDateField = styled.div`
       padding: 0px;
     }
 `;
+StyledDateField.defaultProps = { theme: baseTheme };

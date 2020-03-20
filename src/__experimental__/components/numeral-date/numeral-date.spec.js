@@ -75,12 +75,35 @@ describe('NumeralDate', () => {
   });
 
   describe('Clicking off the component', () => {
-    it('calls onBlur', () => {
+    beforeEach(() => {
+      onKeyDown = jest.fn();
+      onChange = jest.fn();
       onBlur = jest.fn();
-      wrapper = renderWrapper({ dateFormat: ['dd'], onBlur }, mount);
+      const props = {
+        dateFormat: ['dd'],
+        defaultValue: { dd: '30' },
+        onBlur,
+        onChange,
+        onKeyDown,
+        id: 'numeralDate_id',
+        name: 'numeralDate_name'
+      };
+      wrapper = mount(
+        <NumeralDate
+          { ...props }
+        />
+      );
+    });
+    it('calls onBlur if prop is passed', () => {
       const input = wrapper.find('input');
       input.simulate('blur');
       expect(onBlur).toHaveBeenCalled();
+    });
+    it('does not call onBlur when no prop is passed', () => {
+      wrapper.setProps({ onBlur: undefined });
+      const input = wrapper.find('input');
+      input.simulate('blur');
+      expect(onBlur).not.toHaveBeenCalled();
     });
   });
 
@@ -89,22 +112,44 @@ describe('NumeralDate', () => {
       onKeyDown = jest.fn();
       onChange = jest.fn();
       onBlur = jest.fn();
-      wrapper = renderWrapper({
+      const props = {
         dateFormat: ['dd'],
+        value: { dd: '12' },
         onBlur,
         onChange,
         onKeyDown,
         id: 'numeralDate_id',
         name: 'numeralDate_name'
-      }, mount);
+      };
+      wrapper = mount(
+        <NumeralDate
+          { ...props }
+        />
+      );
     });
-
     it('accepts a value and calls onChange prop', () => {
       const input = wrapper.find('input');
       act(() => {
         input.simulate('change', { target: { value: '45' } });
       });
       expect(onChange).toHaveBeenCalled();
+    });
+    // Need this test to hit else branch statement coverage
+    it('accepts the same value and calls onChange prop', () => {
+      const input = wrapper.find('input');
+      act(() => {
+        input.simulate('change', { target: { value: '12' } });
+      });
+      expect(onChange).toHaveBeenCalled();
+    });
+
+    it('does not call onChange prop', () => {
+      wrapper.setProps({ onChange: undefined });
+      const input = wrapper.find('input');
+      act(() => {
+        input.simulate('change', { target: { value: '45' } });
+      });
+      expect(onChange).not.toHaveBeenCalled();
     });
   });
 
