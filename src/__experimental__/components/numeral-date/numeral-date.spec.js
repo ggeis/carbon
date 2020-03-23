@@ -10,9 +10,12 @@ import StyledTextInput from '../input/input-presentation.style';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('NumeralDate', () => {
-  let wrapper, onBlur, onChange, onKeyDown;
+  let wrapper;
+  const onBlur = jest.fn();
+  const onChange = jest.fn();
+  const onKeyDown = jest.fn();
 
-  const renderWrapper = (props, render = shallow) => {
+  const renderThemedWrapper = (props, render = shallow) => {
     const defaultProps = { value: { dd: '12', mm: '', yyyy: '' }, dateFormat: ['dd', 'mm', 'yyyy'] };
     return (
       render(
@@ -26,17 +29,37 @@ describe('NumeralDate', () => {
     );
   };
 
+  const renderThemelessWrapper = (props, render = shallow) => {
+    const defaultProps = {
+      dateFormat: ['dd'],
+      defaultValue: { dd: '30' },
+      onBlur,
+      onChange,
+      onKeyDown,
+      id: 'numeralDate_id',
+      name: 'numeralDate_name'
+    };
+    return (
+      render(
+        <NumeralDate
+          { ...defaultProps }
+          { ...props }
+        />
+      )
+    );
+  };
+
   describe('styles', () => {
     it('matches the expected styles', () => {
       assertStyleMatch({
         display: 'inline-flex',
         fontSize: '14px',
         fontWeight: '400'
-      }, renderWrapper({ }, mount));
+      }, renderThemedWrapper({ }, mount));
     });
 
     it('applies the expected styling when component has focus', () => {
-      wrapper = renderWrapper({
+      wrapper = renderThemedWrapper({
         value: { dd: '03' },
         dateFormat: ['dd'],
         isActive: true
@@ -48,7 +71,7 @@ describe('NumeralDate', () => {
     });
 
     it('applies the expected styling when component has an error', () => {
-      wrapper = renderWrapper({
+      wrapper = renderThemedWrapper({
         value: { dd: '03', mm: '03', yyyy: '2003' },
         dateFormat: ['yyyy', 'mm', 'dd'],
         errorPresent: true
@@ -61,7 +84,7 @@ describe('NumeralDate', () => {
     });
 
     it('applies the expected styling when component has an error and component consists of two textboxes', () => {
-      wrapper = renderWrapper({
+      wrapper = renderThemedWrapper({
         value: { dd: '03', mm: '03' },
         dateFormat: ['dd', 'mm'],
         errorPresent: true
@@ -75,89 +98,53 @@ describe('NumeralDate', () => {
   });
 
   describe('Clicking off the component', () => {
-    beforeEach(() => {
-      onKeyDown = jest.fn();
-      onChange = jest.fn();
-      onBlur = jest.fn();
-      const props = {
-        dateFormat: ['dd'],
-        defaultValue: { dd: '30' },
-        onBlur,
-        onChange,
-        onKeyDown,
-        id: 'numeralDate_id',
-        name: 'numeralDate_name'
-      };
-      wrapper = mount(
-        <NumeralDate
-          { ...props }
-        />
-      );
-    });
-    it('calls onBlur if prop is passed', () => {
-      const input = wrapper.find('input');
-      input.simulate('blur');
-      expect(onBlur).toHaveBeenCalled();
-    });
     it('does not call onBlur when no prop is passed', () => {
-      wrapper.setProps({ onBlur: undefined });
+      wrapper = renderThemelessWrapper({ onBlur: undefined }, mount);
       const input = wrapper.find('input');
       input.simulate('blur');
       expect(onBlur).not.toHaveBeenCalled();
     });
+
+    it('calls onBlur if prop is passed', () => {
+      wrapper = renderThemelessWrapper({}, mount);
+      const input = wrapper.find('input');
+      input.simulate('blur');
+      expect(onBlur).toHaveBeenCalled();
+    });
   });
 
   describe('supports being a controlled component', () => {
-    beforeEach(() => {
-      onKeyDown = jest.fn();
-      onChange = jest.fn();
-      onBlur = jest.fn();
-      const props = {
-        dateFormat: ['dd'],
-        value: { dd: '12' },
-        onBlur,
-        onChange,
-        onKeyDown,
-        id: 'numeralDate_id',
-        name: 'numeralDate_name'
-      };
-      wrapper = mount(
-        <NumeralDate
-          { ...props }
-        />
-      );
-    });
-    it('accepts a value and calls onChange prop', () => {
-      const input = wrapper.find('input');
-      act(() => {
-        input.simulate('change', { target: { value: '45' } });
-      });
-      expect(onChange).toHaveBeenCalled();
-    });
-    // Need this test to hit else branch statement coverage
-    it('accepts the same value and calls onChange prop', () => {
-      const input = wrapper.find('input');
-      act(() => {
-        input.simulate('change', { target: { value: '12' } });
-      });
-      expect(onChange).toHaveBeenCalled();
-    });
-
     it('does not call onChange prop', () => {
-      wrapper.setProps({ onChange: undefined });
+      wrapper = renderThemelessWrapper({ onChange: undefined }, mount);
       const input = wrapper.find('input');
       act(() => {
         input.simulate('change', { target: { value: '45' } });
       });
       expect(onChange).not.toHaveBeenCalled();
     });
+
+    it('accepts a value and calls onChange prop', () => {
+      wrapper = renderThemelessWrapper({}, mount);
+      const input = wrapper.find('input');
+      act(() => {
+        input.simulate('change', { target: { value: '45' } });
+      });
+      expect(onChange).toHaveBeenCalled();
+    });
+
+    // Need this test to hit else branch statement coverage
+    it('accepts the same value and calls onChange prop', () => {
+      wrapper = renderThemelessWrapper({}, mount);
+      const input = wrapper.find('input');
+      act(() => {
+        input.simulate('change', { target: { value: '12' } });
+      });
+      expect(onChange).toHaveBeenCalled();
+    });
   });
 
   describe('supports being a uncontrolled component', () => {
     it('accepts a default value', () => {
-      onKeyDown = jest.fn();
-      onChange = jest.fn();
-      onBlur = jest.fn();
       const props = {
         dateFormat: ['dd'],
         defaultValue: { dd: '30' },
@@ -181,10 +168,7 @@ describe('NumeralDate', () => {
 
   describe('Component does not allow non-numeric characters to be entered', () => {
     beforeEach(() => {
-      onKeyDown = jest.fn();
-      onChange = jest.fn();
-      onBlur = jest.fn();
-      wrapper = renderWrapper({
+      wrapper = renderThemedWrapper({
         dateFormat: ['dd'],
         onBlur,
         onChange,
@@ -206,10 +190,7 @@ describe('NumeralDate', () => {
 
   describe('Valid characters', () => {
     beforeEach(() => {
-      onKeyDown = jest.fn();
-      onChange = jest.fn();
-      onBlur = jest.fn();
-      wrapper = renderWrapper({
+      wrapper = renderThemedWrapper({
         dateFormat: ['dd'],
         onBlur,
         onChange,
