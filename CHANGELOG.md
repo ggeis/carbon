@@ -1,3 +1,24 @@
+### [14.5.1](https://github.com/Sage/carbon/compare/v14.5.0...v14.5.1) (2020-03-23)
+
+
+### Bug Fixes
+
+* **pill:** close button styling ([e054884](https://github.com/Sage/carbon/commit/e054884dd0af65d65041901fce03fd8dcbfbe679))
+
+## [14.5.0](https://github.com/Sage/carbon/compare/v14.4.0...v14.5.0) (2020-03-20)
+
+
+### Features
+
+* **icon:** add icons ([513966b](https://github.com/Sage/carbon/commit/513966bf9536dd52693d58f43317e7b20c39c110))
+
+## [14.4.0](https://github.com/Sage/carbon/compare/v14.3.0...v14.4.0) (2020-03-20)
+
+
+### Features
+
+* add new BatchSelection component ([6a61955](https://github.com/Sage/carbon/commit/6a61955d7c5a669438814079e56f0966e22d6eac))
+
 ## [14.3.0](https://github.com/Sage/carbon/compare/v14.2.2...v14.3.0) (2020-03-18)
 
 

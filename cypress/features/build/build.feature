@@ -35,7 +35,7 @@ Feature: Build tests
     Then "<data-component>" component is visible
     Examples:
       | component                        | data-component       |
-      | action-popover                   | action-popover       |
+      | test-action-popover              | action-popover       |
       | animated menu button             | animated-menu-button |
       | app wrapper                      | app-wrapper          |
       | button toggle                    | button-toggle        |
@@ -192,6 +192,7 @@ Feature: Build tests
       | Button Toggle Group      | button-toggle-group |
       | Flat Table               | flat-table          |
       | Grid                     | grid                |
+      | Batch Selection          | batch-selection     |
       | Popover Container        | popover-container   |
       | Search                   | search              |
       
