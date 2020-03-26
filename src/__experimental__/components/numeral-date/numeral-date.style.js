@@ -6,8 +6,7 @@ import StyledFormField from '../form-field/form-field.style';
 import StyledInput from '../input/input-presentation.style';
 import StyledIcon from '../../../components/icon/icon.style';
 
-const StyledNumeralDate = styled.div`
-  margin: 0px, 0px;
+export const StyledNumeralDate = styled.div`
   display: inline-flex;
   border: 1px solid transparent;
   height: 40px;
@@ -20,59 +19,59 @@ const StyledNumeralDate = styled.div`
      margin-top: 0px;
   }
 `;
-
 StyledNumeralDate.defaultProps = { theme: baseTheme };
-export default StyledNumeralDate;
+
 
 export const StyledDateField = styled.div`
 
-  ${StyledInput} {
-      position: relative;
-      width: ${({
-    isYearInput, isMiddle, isEnd, errorPresent
-  }) => (
-    // eslint-disable-next-line indent
-        isYearInput || (isEnd && errorPresent) || (isMiddle && errorPresent) ? '78px;' : '58px;')};
-      text-align: center;
+${({
+    isYearInput, theme, isEnd, errorPresent, isMiddle, dateFormatLength
+  }) => {
+    const yearInputOrError = isYearInput || (isEnd && errorPresent);
+    const borderColor = errorPresent ? theme.numeralDate.error : theme.numeralDate.passive;
 
-      ${({ isMiddle, dateFormatLength }) => css`
-        ${(isMiddle && dateFormatLength === 3) && css`
-          border-left: none;
-          border-right: none;
-          :focus {
-              border-left: 1px;
-              border-right: 1px;
-            }
-        `}
-        ${(isMiddle && dateFormatLength < 3) && css`
-          border-left: 1px;
-          :focus {
-              border-left: 1px;
-              border-right: 1px;
-            }
-        `}
-      `}
+    return css`
 
-     border-color: ${({ theme, errorPresent }) => (
-    // eslint-disable-next-line indent
-       errorPresent ? `${theme.numeralDate.error}` : `${theme.numeralDate.passive}`)}; 
-    }
+      border-color: ${borderColor};
+      ${StyledInput} {
+          position: relative;
+          width: ${(yearInputOrError ? '78px;' : '58px;')};
+          text-align: center;
 
-    ${StyledIcon} {
-      display: float;
-      color: ${({ theme }) => (theme.numeralDate.error)};
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-    }
+            ${(isMiddle && dateFormatLength === 3) && css`
+              border-left: none;
+              border-right: none;
+              :focus {
+                  border-left: 1px;
+                  border-right: 1px;
+                }
+            `}
+            ${isMiddle && css`
+              ${dateFormatLength < 3 && 'border-left: 1px;'}
+              :focus {
+                border-left: 1px;
+                border-right: 1px;
+              }
+            `}
 
-    ${StyledIconSpan} {
-      width: 32px;
-    }
+        ${StyledIcon} {
+          display: float;
+          color: ${(theme.numeralDate.error)};
+          width: 16px;
+          height: 16px;
+          cursor: pointer;
+        }
 
-    ${StyledValidationIcon} {
-      margin-left: 0px;
-      padding: 0px;
-    }
-`;
+        ${StyledIconSpan} {
+          width: 32px;
+        }
+
+        ${StyledValidationIcon} {
+          margin-left: 0px;
+          padding: 0px;
+        }
+      `;
+  }
+}`;
+
 StyledDateField.defaultProps = { theme: baseTheme };
