@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import invariant from 'invariant';
 import Events from '../../../utils/helpers/events';
-import StyledNumeralDate, { StyledDateField } from './numeral-date.style';
+import { StyledNumeralDate, StyledDateField } from './numeral-date.style';
 import Textbox from '../textbox';
 
 const NumeralDate = ({
@@ -24,20 +24,15 @@ const NumeralDate = ({
   );
 
   let inputRef = useRef();
-  const [isActive, setIsActive] = useState(inputRef.current === document.activeElement);
+  const [isActive, setIsActive] = useState();
   const [dateValue, setDateValue] = useState({
     ...initialValue
   });
 
-  const isValidKeyPress = (ev) => {
-    if (Events.isNumberKey(ev) || Events.isDeletingKey(ev) || Events.isTabKey(ev)) {
-      return true;
-    }
-    return false;
-  };
-
   const onKeyPress = (ev) => {
-    if (!isValidKeyPress(ev)) {
+    const isValidKey = Events.isNumberKey(ev) || Events.isDeletingKey(ev) || Events.isTabKey(ev);
+
+    if (!isValidKey) {
       ev.preventDefault();
     }
   };
@@ -74,30 +69,35 @@ const NumeralDate = ({
         data-component='numeral-date'
       >
         {
-          dateFormat.map((datePart, i) => (
-            <StyledDateField
-              key={ datePart }
-              isYearInput={ datePart.length === 4 }
-              isMiddle={ i === 1 }
-              isEnd={ i === 2 }
-              errorPresent={ errorPresent }
-              dateFormatLength={ dateFormat.length }
-            >
-              <Textbox
-                placeholder={ datePart }
-                value={ dateValue[datePart] }
-                inputRef={ (e) => { inputRef = e; } }
-                onChange={ e => handleChange(e, datePart) }
-                hasError={ errorPresent }
-                onBlur={ handleBlur }
-                {
-                ...((((datePart.length === 4 && i === 2) || (i === 1)) && errorPresent) && {
-                  inputIcon: 'error',
-                  tooltipMessage: errorMessage
-                })
-                }
-              />
-            </StyledDateField>))
+          dateFormat.map((datePart, textboxNumber) => {
+            const isEnd = textboxNumber === dateFormat.length - 1;
+            return (
+              <StyledDateField
+                key={ datePart }
+                isYearInput={ datePart.length === 4 }
+                isMiddle={ textboxNumber === 1 }
+                isEnd={ isEnd }
+                twoPartDate={ textboxNumber <= 1 }
+                errorPresent={ errorPresent }
+                dateFormatLength={ dateFormat.length }
+              >
+                <Textbox
+                  placeholder={ datePart }
+                  value={ dateValue[datePart] }
+                  inputRef={ (e) => { inputRef = e; } }
+                  onChange={ e => handleChange(e, datePart) }
+                  hasError={ errorPresent }
+                  onBlur={ handleBlur }
+                  {
+                  ...(isEnd && errorPresent && {
+                    inputIcon: 'error',
+                    tooltipMessage: errorMessage
+                  })
+                  }
+                />
+              </StyledDateField>
+            );
+          })
         }
       </StyledNumeralDate>
     </>

@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { act } from 'react-dom/test-utils';
 import mintTheme from '../../../style/themes/mint';
 import NumeralDate from './numeral-date.component';
-import StyledNumeralDate from './numeral-date.style';
+import { StyledNumeralDate } from './numeral-date.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import StyledTextInput from '../input/input-presentation.style';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
@@ -137,7 +137,7 @@ describe('NumeralDate', () => {
       wrapper = renderThemelessWrapper({}, mount);
       const input = wrapper.find('input');
       act(() => {
-        input.simulate('change', { target: { value: '12' } });
+        input.simulate('change', { target: { value: '30' } });
       });
       expect(onChange).toHaveBeenCalled();
     });
