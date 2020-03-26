@@ -35,39 +35,48 @@ export default (palette) => {
         hover: palette.errorRedShade(20)
       }
     },
+
     anchorNavigation: {
       divider: palette.slateTint(80),
       navItemHoverBackground: palette.slateTint(90)
     },
+
     accordion: {
       border: palette.slateTint(80),
       background: palette.slateTint(90)
     },
+
     batchSelection: {
       lightTheme: palette.slateTint(70)
     },
+
     menu: {
       focus: palette.slateTint(95),
       divider: palette.slateTint(90),
       itemColor: blackWithOpacity(0.9),
       itemColorDisabled: blackWithOpacity(0.3)
     },
+
     form: {
       invalid: palette.slateTint(95)
     },
+
     card: {
       footerBackground: palette.slateTint(95),
       footerBorder: palette.slateTint(90),
       footerText: palette.productGreenShade(21)
     },
+
     carousel: {
       activeSelectorBackground: palette.slateTint(40),
       inactiveSelectorBackground: palette.slateTint(80)
     },
+
     help: {
       color: blackWithOpacity(0.65),
       hover: blackWithOpacity(0.9)
     },
+
     pod: {
       border: palette.slateTint(80),
       secondaryBackground: palette.slateTint(95),
@@ -76,16 +85,19 @@ export default (palette) => {
       footerBackground: palette.slateTint(95),
       hoverBackground: palette.slateTint(85)
     },
+
     text: {
       color: blackWithOpacity(0.9),
       placeholder: blackWithOpacity(0.3),
       size: '14px'
     },
+
     readOnly: {
       textboxBackground: palette.slateTint(98),
       textboxBorder: palette.slateTint(80),
       textboxText: blackWithOpacity(0.74)
     },
+
     disabled: {
       border: palette.slateTint(80),
       button: palette.slateTint(90),
@@ -96,12 +108,15 @@ export default (palette) => {
       background: palette.slateTint(90),
       switch: palette.slateTint(89.5)
     },
+
     draggableItem: {
       border: palette.slateTint(90)
     },
+
     checkable: {
       checked: 'rgba(0,0,0,0.90)'
     },
+
     table: {
       primary: palette.slateTint(95),
       secondary: palette.slateTint(80),
@@ -112,14 +127,17 @@ export default (palette) => {
       zebra: palette.slateTint(98),
       dragging: palette.slateTint(90)
     },
+
     pager: {
       active: 'rgba(0,0,0,0.74)',
       disabled: 'rgba(0,0,0,0.55)',
       hover: 'rgba(0,0,0,0.90)'
     },
+
     rainbow: {
       textColor: '#003349'
     },
+
     icon: {
       default: 'rgba(0,0,0,0.65)',
       defaultHover: 'rgba(0,0,0,0.90)',
@@ -127,18 +145,22 @@ export default (palette) => {
       onLightBackgroundHover: palette.slateTint(20),
       disabled: 'rgba(0,0,0,0.30)'
     },
+
     popoverContainer: {
       iconColor: 'rgba(0,0,0,0.90)'
     },
+
     numeralDate: {
       passive: '#668592',
       error: '#C7384F'
     },
+
     portrait: {
       border: palette.slateTint(50),
       background: palette.slateTint(95),
       initials: 'rgba(0,0,0,0.65)'
     },
+
     pill: {
       neutral: palette.slateTint(30),
       warning: palette.carrotOrangeTint(20),
@@ -146,16 +168,19 @@ export default (palette) => {
       warningButtonFocus: palette.carrotOrange,
       errorButtonFocus: palette.errorRedShade(20)
     },
+
     search: {
       active: palette.goldTint(50),
       button: '#255BC7',
       passive: palette.slateTint(80),
       searchActive: '#668592'
     },
+
     select: {
       border: '#bfccd2',
       selected: palette.slateTint(95)
     },
+
     shadows: {
       depth1: '0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)',
       depth2: '0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)',
@@ -165,9 +190,11 @@ export default (palette) => {
       cards: '0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)',
       cardsIE: '0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)'
     },
+
     switch: {
       off: '#CCD6DB'
     },
+
     tile: {
       border: palette.slateTint(80),
       separator: palette.slateTint(90)
