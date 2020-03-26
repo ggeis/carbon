@@ -1,10 +1,14 @@
 export default (palette) => {
   const { atOpacity } = palette,
+
       blackWithOpacity = atOpacity('#000000'),
       baseWithOpacity = atOpacity(palette.productGreen);
+
   return {
     name: 'base',
+
     spacing: 8,
+
     colors: {
       // main
       base: palette.productGreen,
@@ -15,16 +19,19 @@ export default (palette) => {
       disabled: palette.genericGreenTint(40),
       whiteMix: palette.genericGreenTint(90),
       withOpacity: baseWithOpacity(0.55),
+
       // generic
       black: '#000000',
       slate: '#003349',
       white: '#FFFFFF',
+
       // element
       border: palette.slateTint(40),
       focusedIcon: palette.slateTint(20),
       focusedLinkBackground: palette.goldTint(50),
       previewBackground: palette.slateTint(75),
       hoveredTabKeyline: palette.genericGreenTint(30),
+
       // status
       error: palette.errorRed,
       focus: palette.gold,
