@@ -5,6 +5,20 @@ import NumeralDate from '.';
 
 # Numeral Date
 
+For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year. 
+For dates close to today, we advise the use of a standard datepicker. If you require this, please see the "Date Input" component.
+
+## Quick Start
+Import `NumeralDate` into the project.
+
+```jsx
+import { NumeralDate } from "carbon-react/lib/components/numeral-date"
+
+const MyComponent = () => (
+  <NumeralDate dateFormat={['dd','mm','yyyy']} />
+);
+```
+
 Default Date Format
 <Preview>
   <Story name="Default" parameters={{ info: { disable: true }}} >
@@ -35,7 +49,7 @@ Custom Numeral Date Component has Error
   <Story name="Custom Numeral Date Error" parameters={{ info: { disable: true }}} >
     <NumeralDate 
     defaultValue="Numeral Date" 
-    dateFormat={['yyyy','mm','dd']} 
+    dateFormat={['mm','dd','yyyy']} 
     errorPresent
     errorMessage={'This is an error message. It alerts the user to an error.'}/>
   </Story>
