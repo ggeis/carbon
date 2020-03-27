@@ -5,7 +5,12 @@ import { DEBUG_FLAG } from '.';
 import { getElementNoIframe } from '../locators/build';
 
 function prepareUrl(component, suffix, iFrameOnly, prefix) {
-  let url = Cypress.config().baseUrl;
+  let url;
+  if (Cypress.env('CI') === true) {
+    url = Cypress.config().CI_baseUrl;
+  } else {
+    url = Cypress.config().baseUrl;
+  }
   const iFrame = Cypress.env('iframe') + prefix;
   const story = Cypress.env('story') + prefix;
   // eslint-disable-next-line no-unused-expressions
