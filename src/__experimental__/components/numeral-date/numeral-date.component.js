@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import invariant from 'invariant';
 import Events from '../../../utils/helpers/events';
@@ -23,7 +23,6 @@ const NumeralDate = ({
     'This component has no initial value'
   );
 
-  let inputRef = useRef();
   const [isActive, setIsActive] = useState();
   const [dateValue, setDateValue] = useState({
     ...initialValue
@@ -84,7 +83,6 @@ const NumeralDate = ({
                 <Textbox
                   placeholder={ datePart }
                   value={ dateValue[datePart] }
-                  inputRef={ (e) => { inputRef = e; } }
                   onChange={ e => handleChange(e, datePart) }
                   hasError={ errorPresent }
                   onBlur={ handleBlur }
