@@ -156,7 +156,7 @@ fi
 
 if $RUN_CHROME; then
   echo 'Running regression using chrome'
-  docker run -w /app -e CI=true -u node cypress/browsers:node13.6.0-chrome80-ff72 --browser chrome --reporter spec
+  docker run -it -v $PWD:/app -w /app -e CI=true -u node cypress/included:4.1.0 --browser chrome --reporter spec
 fi
 
 if $RUN_FIREFOX; then
