@@ -156,10 +156,10 @@ fi
 
 if $RUN_CHROME; then
   echo 'Running regression using chrome'
-  docker run -it -v $PWD:/app -w /app -e CI=true -u node cypress/included:4.1.0 --browser chrome --reporter spec
+  docker run -it -v $PWD:/app -w /app -e CI=true cypress/included:4.1.0 --browser chrome --reporter spec
 fi
 
 if $RUN_FIREFOX; then
   echo 'Running regression using firefox'
-  docker run -it -v './allure-report/:/usr/src/app/allure-report' -w /app -e CI=true -u node cypress/browsers:node13.6.0-chrome80-ff72 --browser firefox
+  docker run -it -v $PWD:/app -w /app -w /app -e CI=true -u node cypress/included:4.1.0 --browser firefox --reporter spec
 fi
