@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-set e+x
+set -e
 
-export COMPOSE_FILE=docker-compose-cypress_demo_site.yml
+export COMPOSE_FILE=docker-compose-cypress-demo-site.yml
 
 RUN_CHROME=false
 RUN_FIREFOX=false
