@@ -30,10 +30,6 @@ Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
 
-Given('I open {string} component page classic', (component) => {
-  visitComponentUrl(component, 'classic');
-});
-
 Given('I open {string} component page basic', (component) => {
   visitComponentUrl(component, 'basic');
 });
@@ -50,24 +46,12 @@ Given('I open {string} component page buttonToogleGroup validation in iframe', (
   visitComponentUrl(component, 'buttonToogleGroup', true);
 });
 
-Given('I open {string} component buttonToogleGroup classic page validation in iframe', (component) => {
-  visitComponentUrl(component, 'buttonToogleGroup_classic', true);
-});
-
-Given('I open {string} basic classic component page in iframe', (component) => {
-  visitComponentUrl(component, 'basic_classic', true);
-});
-
 Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
 });
 
 Given('I open {string} component page with inputs', (component) => {
   visitComponentUrl(component, 'default_with_inputs');
-});
-
-Given('I open {string} component with button classic page', (component) => {
-  visitComponentUrl(component, 'with_button_classic');
 });
 
 Given('I open {string} component page legacy spinner', (component) => {
@@ -78,14 +62,6 @@ Given('I open {string} component page legacy spinner in iframe', (component) => 
   visitComponentUrl(component, 'legacy_spinner', true);
 });
 
-Given('I open {string} component page legacy spinner', (component) => {
-  visitComponentUrl(component, 'legacy_spinner_classic');
-});
-
-Given('I open {string} component legacy spinner classic page in iframe', (component) => {
-  visitComponentUrl(component, 'legacy_spinner_classic', true);
-});
-
 Given('I open {string} component in iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });
@@ -93,10 +69,6 @@ Given('I open {string} component in iframe', (component) => {
 // the step above should be refactored and changed to in noiFrame
 Given('I open {string} component in noiFrame', (component) => {
   visitComponentUrl(component, 'default', true);
-});
-
-Given('I open {string} component for classic story in iframe', (component) => {
-  visitComponentUrl(component, 'classic', true);
 });
 
 Given('I open deprecated {string} component in iframe', (component) => {
@@ -111,32 +83,16 @@ Given('I open {string} textbox based component page in iframe', (component) => {
   visitComponentUrl(component, 'textbox_based', true);
 });
 
-Given('I open {string} textbox based classic component page in iframe', (component) => {
-  visitComponentUrl(component, 'textbox_based_classic', true);
-});
-
 Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
-});
-
-Given('I open {string} component for classic story with button page in iframe', (component) => {
-  visitComponentUrl(component, 'with_button_classic', true);
 });
 
 Given('I open {string} component page multiple', (component) => {
   visitComponentUrl(component, 'multiple');
 });
 
-Given('I open {string} component for classic story page multiple', (component) => {
-  visitComponentUrl(component, 'multiple_classic');
-});
-
 Given('I open {string} component page multiple in iframe', (component) => {
   visitComponentUrl(component, 'multiple', true);
-});
-
-Given('I open {string} component for classic story page multiple in iframe', (component) => {
-  visitComponentUrl(component, 'multiple_classic', true);
 });
 
 Given('I open {string} component page as sibling in iframe', (component) => {
@@ -145,14 +101,6 @@ Given('I open {string} component page as sibling in iframe', (component) => {
 
 Given('I open {string} component page as sibling in no iframe', (component) => {
   visitComponentUrl(component, 'as_a_sibling');
-});
-
-Given('I open {string} component for classic story as sibling in iframe', (component) => {
-  visitComponentUrl(component, 'as_a_sibling_classic', true);
-});
-
-Given('I open {string} classic component for classic story as sibling in no iframe', (component) => {
-  visitComponentUrl(component, 'as_a_sibling_classic');
 });
 
 Given('I open {string} component page validations in iframe', (component) => {
@@ -167,16 +115,16 @@ Given('I open basic Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'basic', true, 'test-');
 });
 
+Given('I open style override Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'style_override', true, 'test-');
+});
+
 When('I open Test {string} component basic page with prop value', (componentName) => {
   visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
 });
 
 Given('I open grouped Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'grouped', true, 'test-');
-});
-
-Given('I open {string} component page validations classic in iframe', (component) => {
-  visitComponentUrl(component, 'validations_classic', true);
 });
 
 Given('I open {string} component page autoFocus in iframe', (component) => {
@@ -567,6 +515,24 @@ When('I press ArrowRight on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 39, which: 39 });
 });
 
+When('I press {string} onto focused element', (arrow) => {
+  switch (arrow) {
+    case 'downarrow':
+      cy.focused().trigger('keydown', { keyCode: 40, which: 40 });
+      break;
+    case 'uparrow':
+      cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
+      break;
+    case 'enter':
+      cy.focused().trigger('keydown', { keyCode: 13, which: 13 });
+      break;
+    case 'space':
+      cy.focused().trigger('keydown', { keyCode: 32, which: 32 });
+      break;
+    default: throw new Error(`This key ${arrow} is not one of the arrow ones`);
+  }
+});
+
 When('I press ShiftTab on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
   cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
@@ -574,6 +540,10 @@ When('I press ShiftTab on focused element', () => {
 
 Then('focused element inner content is set to {string}', (text) => {
   cy.focused().should('contain', text);
+});
+
+Then('focused element has golden border outline {string}', (color) => {
+  cy.focused().should('have.css', 'outline', color);
 });
 
 When('I press keyboard {string} key times {int}', (key, times) => {
