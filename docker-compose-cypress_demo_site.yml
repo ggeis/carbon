@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  cypress:
+    image: carbon_cypress
+    container_name: cypress
+    # Reason for the below `ipc: host` line:
+    # https://github.com/cypress-io/cypress/issues/350
+    # https://docs.cypress.io/guides/references/error-messages.html#The-Chromium-Renderer-process-just-crashed
+    ipc: host
+    volumes:
+      - './allure-report/:/usr/src/app/allure-report'
