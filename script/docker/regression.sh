@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set e+x
 
+export COMPOSE_FILE=docker-compose-cypress_demo_site.yml
+
 RUN_CHROME=false
 RUN_FIREFOX=false
 
@@ -24,10 +26,10 @@ done
 
 if $RUN_CHROME; then
   echo 'Running regression using chrome'
-  docker run -it -v './allure-report/:/usr/src/app/allure-report' -w /app -e CI=true -u node cypress/browsers:node13.6.0-chrome80-ff72 --browser chrome
+  docker-compose exec -T cypress bash -c "--env CI=true npm run test-cypress-regression; npm run generate-cypress-allure-report"
 fi
 
 if $RUN_FIREFOX; then
   echo 'Running regression using firefox'
-  docker run -it -v './allure-report/:/usr/src/app/allure-report' -w /app -e CI=true -u node cypress/browsers:node13.6.0-chrome80-ff72 --browser firefox
+  docker-compose exec -T cypress bash -c "--env CI=true npm run test-cypress-regression --browser firefox; npm run generate-cypress-allure-report"
 fi
