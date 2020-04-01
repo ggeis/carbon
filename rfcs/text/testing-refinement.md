@@ -51,6 +51,7 @@ Cypress will use the feature files to navigate to each story, as it does current
 
 The test feature file for Button could be reduced to something like:
 
+```
 Feature: Button component
   I want to check Button component properties
 
@@ -66,6 +67,7 @@ Feature: Button component
     Given clear all actions in Actions Tab
     When I click on "button"
     Then click action was called in Actions Tab
+```    
 
 The step “Then Button is presented correctly” is where Applitools will take the snapshot. The existing accessibility and build test feature files could remain as they are.
 
