@@ -50,55 +50,60 @@ const NumeralDate = ({
   };
 
   const handleBlur = (ev) => {
+    const targetObject = {
+      name: ev.target.name,
+      id: ev.target.id,
+      value: { ...dateValue }
+    };
+
     setIsActive(false);
+
     if (onBlur) {
-      onBlur({ name: ev.target.name, id: ev.target.id, value: { ...dateValue } });
+      onBlur(targetObject);
     }
   };
 
   return (
-    <>
-      <StyledNumeralDate
-        name={ name }
-        id={ id }
-        isActive={ isActive }
-        onBlur={ handleBlur }
-        onKeyPress={ onKeyPress }
-        onFocus={ handleOnFocus }
-        data-component='numeral-date'
-      >
-        {
-          dateFormat.map((datePart, textboxNumber) => {
-            const isEnd = textboxNumber === dateFormat.length - 1;
-            return (
-              <StyledDateField
-                key={ datePart }
-                isYearInput={ datePart.length === 4 }
-                isMiddle={ textboxNumber === 1 }
-                isEnd={ isEnd }
-                twoPartDate={ textboxNumber <= 1 }
-                errorPresent={ errorPresent }
-                dateFormatLength={ dateFormat.length }
-              >
-                <Textbox
-                  placeholder={ datePart }
-                  value={ dateValue[datePart] }
-                  onChange={ e => handleChange(e, datePart) }
-                  hasError={ errorPresent }
-                  onBlur={ handleBlur }
-                  {
-                  ...(isEnd && errorPresent && {
-                    inputIcon: 'error',
-                    tooltipMessage: errorMessage
-                  })
-                  }
-                />
-              </StyledDateField>
-            );
-          })
-        }
-      </StyledNumeralDate>
-    </>
+    <StyledNumeralDate
+      name={ name }
+      id={ id }
+      isActive={ isActive }
+      onBlur={ handleBlur }
+      onKeyPress={ onKeyPress }
+      onFocus={ handleOnFocus }
+      data-component='numeral-date'
+    >
+      {
+        dateFormat.map((datePart, textboxNumber) => {
+          const isEnd = textboxNumber === dateFormat.length - 1;
+          return (
+            <StyledDateField
+              key={ datePart }
+              isYearInput={ datePart.length === 4 }
+              isMiddle={ textboxNumber === 1 }
+              isEnd={ isEnd }
+              twoPartDate={ textboxNumber <= 1 }
+              errorPresent={ errorPresent }
+              dateFormatLength={ dateFormat.length }
+            >
+              <Textbox
+                placeholder={ datePart }
+                value={ dateValue[datePart] }
+                onChange={ e => handleChange(e, datePart) }
+                hasError={ errorPresent }
+                onBlur={ handleBlur }
+                {
+                ...(isEnd && errorPresent && {
+                  inputIcon: 'error',
+                  tooltipMessage: errorMessage
+                })
+                }
+              />
+            </StyledDateField>
+          );
+        })
+      }
+    </StyledNumeralDate>
   );
 };
 
@@ -130,6 +135,7 @@ NumeralDate.propTypes = {
   /** Prop for `name` events */
   name: PropTypes.string,
   /** Prop for placeholder */
+  // eslint-disable-next-line react/no-unused-prop-types
   placeholder: PropTypes.string
 };
 
