@@ -1,6 +1,7 @@
 import React from 'react';
-import { boolean, withKnobs } from '@storybook/addon-knobs';
+import { boolean, withKnobs, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import {
   FlatTable,
   FlatTableHead,
@@ -22,6 +23,7 @@ export const basic = () => {
   const hasStickyHead = boolean('hasStickyHead', false);
   const hasHeaderRow = boolean('hasHeaderRow', false);
   const hasClickableRows = boolean('hasClickableRows', false);
+  const colorTheme = select('colorTheme', [...OptionsHelper.flatTableThemes], 'transparent');
   const processed = getTableData();
   // used to show how the table behaves constrained or on lower resolutions
   const tableSizeConstraints = {
@@ -47,7 +49,10 @@ export const basic = () => {
 
   return (
     <div style={ tableSizeConstraints }>
-      <FlatTable hasStickyHead={ hasStickyHead }>
+      <FlatTable
+        colorTheme={ colorTheme }
+        hasStickyHead={ hasStickyHead }
+      >
         <FlatTableHead>
           {
             <FlatTableRow key={ processed.headData.id }>

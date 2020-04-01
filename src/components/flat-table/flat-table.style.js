@@ -5,11 +5,38 @@ import StyledFlatTableHead from './flat-table-head/flat-table-head.style';
 
 const StyledFlatTableWrapper = styled.div`
   height: 100%;
+
+  ${({ colorTheme, styleOverride, theme }) => {
+    switch (colorTheme) {
+      case 'dark':
+        return css`
+        ${StyledFlatTableHeader} {
+          background-color: ${theme.flatTable.dark.headerBackground};
+          border-right: 1px solid ${theme.flatTable.dark.border};
+          color: ${theme.colors.white};
+        }`;
+
+      case 'light':
+        return css`
+        ${StyledFlatTableHeader} {
+          background-color: ${theme.flatTable.light.headerBackground};  
+          border-right: 1px solid ${theme.flatTable.light.border};
+        }`;
+
+      default:
+        return css`
+        ${StyledFlatTableHeader} {
+          background-color: ${styleOverride || theme.flatTable.default.headerBackground};
+          position: sticky;
+          z-index: 1;
+        }`;
+    }
+  }}
+
   ${({ hasStickyHead }) => hasStickyHead && css`
     overflow-y: auto;
 
     ${StyledFlatTableHeader} {
-      background-color: #fff;
       position: sticky;
       z-index: 1;
     }

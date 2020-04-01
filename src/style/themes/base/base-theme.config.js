@@ -80,6 +80,22 @@ export default (palette) => {
       inactiveSelectorBackground: palette.slateTint(80)
     },
 
+    flatTable: {
+      dark: {
+        headerBackground: palette.slateTint(20),
+        border: palette.slateTint(40)
+      },
+
+      light: {
+        headerBackground: palette.slateTint(80),
+        border: palette.slateTint(70)
+      },
+
+      default: {
+        headerBackground: '#ffffff'
+      }
+    },
+
     help: {
       color: blackWithOpacity(0.65),
       hover: blackWithOpacity(0.9)

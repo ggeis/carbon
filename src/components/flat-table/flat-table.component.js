@@ -4,11 +4,16 @@ import { StyledFlatTableWrapper, StyledFlatTable } from './flat-table.style';
 
 const FlatTable = ({
   children,
-  hasStickyHead
+  hasStickyHead,
+  colorTheme,
+  styleOverride
 }) => {
+  console.log(styleOverride);
   return (
     <StyledFlatTableWrapper
+      styleOverride={ styleOverride.headerBackground }
       hasStickyHead={ hasStickyHead }
+      colorTheme={ colorTheme }
     >
       <StyledFlatTable data-component='flat-table'>
         { children }
@@ -22,6 +27,10 @@ FlatTable.propTypes = {
   children: PropTypes.node.isRequired,
   /** If true, the header does not scroll with the content */
   hasStickyHead: PropTypes.bool
+};
+
+FlatTable.defaultProps = {
+  styleOverride: {}
 };
 
 export default FlatTable;
