@@ -121,11 +121,7 @@ NumeralDate.propTypes = {
   /** Prop for errorPresent. */
   errorPresent: PropTypes.bool,
   /** Prop for `controlled` use */
-  value: PropTypes.shape({
-    dd: PropTypes.string,
-    mm: PropTypes.string,
-    yyyy: PropTypes.string
-  }),
+  value: PropTypes.object,
   /** Prop for `onBlur` events */
   onBlur: PropTypes.func,
   /** Prop for `onChange` events */
