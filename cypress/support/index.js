@@ -34,15 +34,6 @@ require('cypress-plugin-retries');
 /* returning false here prevents Cypress from failing the test */
 Cypress.on('uncaught:exception', (err, runnable) => false);
 
-Cypress.Commands.overwrite(
-  'type',
-  (originalFn, subject, string, options) => originalFn(
-    subject,
-    string,
-    Object.assign({}, options, { delay: 100 }),
-  ),
-);
-
 Cypress.Commands.add('radioButtonComponent', (radioButtonLabel) => {
   radioButtonComponent().each(($el) => {
     const labelText = $el.find('label').text();
@@ -77,10 +68,6 @@ function getItem(selector, counter) {
   }
 }
 
-Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 50); });
-
-before(() => {
-  cy.wait(1000, { log: DEBUG_FLAG });
-});
+Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 5); });
 
 Cypress.Screenshot.defaults({ screenshotOnRunFailure: DEBUG_FLAG });
