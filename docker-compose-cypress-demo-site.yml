@@ -5,6 +5,8 @@ services:
     image: carbon_cypress
     container_name: cypress
     command: bash -c 'sleep 10000'
+    environment:
+    - CI
     # Reason for the below `ipc: host` line:
     # https://github.com/cypress-io/cypress/issues/350
     # https://docs.cypress.io/guides/references/error-messages.html#The-Chromium-Renderer-process-just-crashed
