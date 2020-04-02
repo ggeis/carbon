@@ -18,8 +18,20 @@ const StyledFlatTableHeader = styled.th`
   `}
 `;
 
+const StyledFlatTableHeaderContent = styled.div`
+  display: inline-block
+
+ ${({ onClick }) => onClick && css`
+  
+  :hover{
+    text-decoration: underline;
+    cursor: pointer;
+    };
+  `} ;
+`;
+
 StyledFlatTableHeader.defaultProps = {
   theme: baseTheme
 };
 
-export default StyledFlatTableHeader;
+export { StyledFlatTableHeader, StyledFlatTableHeaderContent };

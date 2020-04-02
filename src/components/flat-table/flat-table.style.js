@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import StyledFlatTableHeader from './flat-table-header/flat-table-header.style';
+import { StyledFlatTableHeader } from './flat-table-header/flat-table-header.style';
 import StyledFlatTableRowHeader from './flat-table-row-header/flat-table-row-header.style';
 import StyledFlatTableHead from './flat-table-head/flat-table-head.style';
 

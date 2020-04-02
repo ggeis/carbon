@@ -8,7 +8,6 @@ const FlatTable = ({
   colorTheme,
   styleOverride
 }) => {
-  console.log(styleOverride);
   return (
     <StyledFlatTableWrapper
       styleOverride={ styleOverride.headerBackground }
@@ -26,7 +25,11 @@ FlatTable.propTypes = {
   /** FlatTableHead and FlatTableBody */
   children: PropTypes.node.isRequired,
   /** If true, the header does not scroll with the content */
-  hasStickyHead: PropTypes.bool
+  hasStickyHead: PropTypes.bool,
+  /** Override `TableHeader` background color */
+  styleOverride: PropTypes.object,
+  /** Setup one of theme colors to the Table */
+  colorTheme: PropTypes.string
 };
 
 FlatTable.defaultProps = {

@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import StyledFlatTableHeader from './flat-table-header.style';
+import { StyledFlatTableHeader, StyledFlatTableHeaderContent } from './flat-table-header.style';
 
-const FlatTableHeader = ({ align, children }) => {
+const FlatTableHeader = ({ align, children, onClick }) => {
   return (
-    <StyledFlatTableHeader align={ align } data-element='flat-table-header'>
-      { children }
+    <StyledFlatTableHeader
+      onClick={ onClick ? () => onClick(children) : null }
+      align={ align }
+      data-element='flat-table-header'
+    >
+      <StyledFlatTableHeaderContent>
+        { children }
+      </StyledFlatTableHeaderContent>
     </StyledFlatTableHeader>
   );
 };

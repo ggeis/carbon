@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { boolean, withKnobs, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
@@ -66,7 +66,7 @@ export const basic = () => {
 
                   return (
                     <Component key={ cellData.id }>
-                      { cellData.content }
+                      {cellData.content}
                     </Component>
                   );
                 })
@@ -75,7 +75,7 @@ export const basic = () => {
           }
         </FlatTableHead>
         <FlatTableBody>
-          { rowWithInputs }
+          {rowWithInputs}
           {
             processed.bodyData.map(rowData => (
               <FlatTableRow key={ rowData.id } onClick={ onClickFn }>
@@ -89,7 +89,7 @@ export const basic = () => {
 
                     return (
                       <Component key={ cellData.id } align={ cellData.align }>
-                        { cellData.content }
+                        {cellData.content}
                       </Component>
                     );
                   })
@@ -100,6 +100,62 @@ export const basic = () => {
         </FlatTableBody>
       </FlatTable>
     </div>
+  );
+};
+
+export const Sortable = () => {
+  const headData = ['Client', 'Total'];
+  const bodyData = [{
+    client: 'Jason Atkinson',
+    total: 1349
+  },
+  {
+    client: 'Monty Parker',
+    total: 849
+  },
+  {
+    client: 'Blake Sutton',
+    total: 3840
+  },
+  {
+    client: 'Tyler Webb',
+    total: 280
+  }];
+
+  const [data, setData] = useState(bodyData);
+
+  const handleClick = (e) => {
+    console.log(e);
+  };
+
+  return (
+    <FlatTable colorTheme='dark'>
+      <FlatTableHead>
+        <FlatTableRow>
+          {
+            headData.map((dataItem) => {
+              return (
+                <FlatTableHeader onClick={ handleClick } key={ dataItem }>
+                  {dataItem}
+                </FlatTableHeader>
+              );
+            })
+          }
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {
+          data.map((dataItem) => {
+            return (
+              <FlatTableRow key={ dataItem.client }>
+                <FlatTableRowHeader>{dataItem.client}</FlatTableRowHeader>
+                <FlatTableRowHeader>{dataItem.total}</FlatTableRowHeader>
+              </FlatTableRow>
+            );
+          })
+        }
+      </FlatTableBody>
+    </FlatTable>
   );
 };
 
@@ -142,7 +198,7 @@ function getRowWithInputs(onClickFn, hasHeaderRow) {
 
   return (
     <FlatTableRow key='rowWithInputs' onClick={ onClickFn }>
-      { firstRow }
+      {firstRow}
       <FlatTableCell><input /></FlatTableCell>
       <FlatTableCell><input /></FlatTableCell>
       <FlatTableCell><input /></FlatTableCell>
