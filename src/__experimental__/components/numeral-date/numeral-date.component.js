@@ -111,11 +111,7 @@ NumeralDate.propTypes = {
   /** Prop array string to define custom layout. Use a comma to seperate values. */
   dateFormat: PropTypes.arrayOf(PropTypes.string),
   /** Prop for `uncontrolled` use */
-  defaultValue: PropTypes.shape({
-    dd: PropTypes.string,
-    mm: PropTypes.string,
-    yyyy: PropTypes.string
-  }),
+  defaultValue: PropTypes.object,
   /** Prop for errorMessage string. */
   errorMessage: PropTypes.string,
   /** Prop for errorPresent. */
