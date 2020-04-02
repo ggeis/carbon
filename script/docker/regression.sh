@@ -26,7 +26,7 @@ done
 
 if $RUN_CHROME; then
   echo 'Running regression using chrome'
-  docker-compose exec -T -e CI=true cypress bash -c "npm run test-cypress-regression --env CI=true; npm run generate-cypress-allure-report"
+  docker-compose exec -T cypress bash -c "./node_modules/.bin/cypress run --env CI=true --browser chrome --headless --reporter mocha-allure-reporter; npm run generate-cypress-allure-report"
 fi
 
 if $RUN_FIREFOX; then
