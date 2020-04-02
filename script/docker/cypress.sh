@@ -14,8 +14,6 @@ HELP_TEXT="Options:\n\n
 --themes\t\t\tRuns the regression themes tests\n
 --test\t\t\t\tRuns the regression test directory tests\n
 --allure-report\t\tGenerates allure-report for cypress tests\n
---chorme\t\t\tRuns the regression using demo site on chrome\n
---firefox\t\t\tRuns the regression using demo site on firefox
 "
 
 RUN_BUILD=false
@@ -28,8 +26,6 @@ RUN_REGRESSION_VALIDATION=false
 RUN_REGRESSION_THEMES=false
 RUN_REGRESSION_TEST=false
 RUN_ALLURE_REPORTS=false
-RUN_CHROME=false
-RUN_FIREFOX=false
 
 while test $# -gt 0; do
     case "$1" in
@@ -88,16 +84,6 @@ while test $# -gt 0; do
           RUN_ALLURE_REPORTS=true
           shift
           ;;
-         # run regression using chrome
-        --chrome)
-          RUN_CHROME=true
-          shift
-          ;;
-        # run regression using firefox
-        --firefox)
-          RUN_FIREFOX=true
-          shift
-          ;;
         *)
           break
           ;;
@@ -152,14 +138,4 @@ fi
 if $RUN_ALLURE_REPORTS; then
   echo 'Running script to generate allure-report for cypress tests'
   docker-compose exec -T cypress bash -c "npm run generate-cypress-allure-report"
-fi
-
-if $RUN_CHROME; then
-  echo 'Running regression using chrome'
-  docker run -v $PWD:/app -w /app -e CI=true cypress/included:4.1.0 --browser chrome --reporter spec
-fi
-
-if $RUN_FIREFOX; then
-  echo 'Running regression using firefox'
-  docker run -it -v $PWD:/app -w /app -w /app -e CI=true -u node cypress/included:4.1.0 --browser firefox --reporter spec
 fi
