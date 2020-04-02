@@ -1,6 +1,6 @@
 {
-  "baseUrl": "http://localhost:9001/",
-  "CI_baseUrl": "https://carbon.sage.com/",
+  "baseUrl": "https://carbon.sage.com/",
+  "local_baseUrl": "http://localhost:9001/",
   "blacklistHosts": ["www.google-analytics.com", "sockjs*", "countries*"],
   "env":
      {

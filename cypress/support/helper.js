@@ -7,9 +7,9 @@ import { getElementNoIframe } from '../locators/build';
 function prepareUrl(component, suffix, iFrameOnly, prefix) {
   let url;
   if (Cypress.env('CI') === true) {
-    url = Cypress.config().CI_baseUrl;
-  } else {
     url = Cypress.config().baseUrl;
+  } else {
+    url = Cypress.config().local_baseUrl;
   }
   const iFrame = Cypress.env('iframe') + prefix;
   const story = Cypress.env('story') + prefix;
