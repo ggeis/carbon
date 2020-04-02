@@ -31,5 +31,5 @@ fi
 
 if $RUN_FIREFOX; then
   echo 'Running regression using firefox'
-  docker-compose exec -T -e CI=true cypress bash -c "npm run test-cypress-regression --browser firefox; npm run generate-cypress-allure-report"
+  docker-compose exec -T cypress bash -c "./node_modules/.bin/cypress run --env CI=true --browser firefox --headless --reporter mocha-allure-reporter; npm run generate-cypress-allure-report"
 fi
