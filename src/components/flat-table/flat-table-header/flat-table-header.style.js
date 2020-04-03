@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../../style/themes/base';
+import Icon from '../../icon';
 
 const StyledFlatTableHeader = styled.th`
   ${({ align, theme }) => css`
@@ -19,14 +20,26 @@ const StyledFlatTableHeader = styled.th`
 `;
 
 const StyledFlatTableHeaderContent = styled.div`
-  display: inline-block
-
- ${({ onClick }) => onClick && css`
+  display: inline-flex;
+  align-items: center;
   
-  :hover{
-    text-decoration: underline;
-    cursor: pointer;
+  ${Icon}{
+    width: 16px;
+    height: 16px;
+  }
+
+ ${({ onClick, theme }) => onClick && css`
+    border-bottom: 1px solid transparent;
+
+    :hover{
+      border-bottom: 1px solid #fff;
+      cursor: pointer;
     };
+
+    :focus{
+      outline: 1px solid ${theme.colors.focus};
+    }
+
   `} ;
 `;
 

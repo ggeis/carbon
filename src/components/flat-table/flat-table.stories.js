@@ -11,6 +11,7 @@ import {
   FlatTableRowHeader,
   FlatTableCell
 } from '.';
+import Icon from '../icon';
 import guid from '../../utils/helpers/guid';
 
 export default {
@@ -137,6 +138,11 @@ export const Sortable = () => {
               return (
                 <FlatTableHeader onClick={ handleClick } key={ dataItem }>
                   {dataItem}
+                  <Icon
+                    bgSize=''
+                    style={ { paddingLeft: '8px' } }
+                    type='sort_down'
+                  />
                 </FlatTableHeader>
               );
             })

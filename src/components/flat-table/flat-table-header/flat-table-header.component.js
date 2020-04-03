@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { StyledFlatTableHeader, StyledFlatTableHeaderContent } from './flat-table-header.style';
 
-const FlatTableHeader = ({ align, children, onClick }) => {
+const FlatTableHeader = ({
+  align, children, onClick
+}) => {
   return (
     <StyledFlatTableHeader
-      onClick={ onClick ? () => onClick(children) : null }
       align={ align }
       data-element='flat-table-header'
     >
-      <StyledFlatTableHeaderContent>
+      <StyledFlatTableHeaderContent tabIndex={ 0 } onClick={ onClick ? () => onClick(children) : null }>
         { children }
       </StyledFlatTableHeaderContent>
     </StyledFlatTableHeader>
