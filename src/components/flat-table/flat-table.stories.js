@@ -139,8 +139,6 @@ export const Sortable = () => {
                 <FlatTableHeader onClick={ handleClick } key={ dataItem }>
                   {dataItem}
                   <Icon
-                    bgSize=''
-                    style={ { paddingLeft: '8px' } }
                     type='sort_down'
                   />
                 </FlatTableHeader>

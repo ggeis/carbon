@@ -92,7 +92,8 @@ export default (palette) => {
       },
 
       default: {
-        headerBackground: '#ffffff'
+        headerBackground: '#ffffff',
+        headerIconColor: palette.slateTint(60)
       }
     },
 

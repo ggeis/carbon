@@ -39,11 +39,11 @@ const StyledFlatTableWrapper = styled.div`
     ${StyledFlatTableHeader} {
       position: sticky;
       z-index: 1;
-    }
+    };
 
     ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
       z-index: 2;
-    }
+    };
   `}
 `;
 
