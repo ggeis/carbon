@@ -33,25 +33,39 @@ Custom Date Format
   </Story>
 </Preview>
 
-Default Numeral Date Component has Error
+Date Component has Error
 <Preview>
-  <Story name="Numeral Date Error" parameters={{ info: { disable: true }}} >
+  <Story name="Date Component has Error" parameters={{ info: { disable: true }}} >
     <NumeralDate 
     defaultValue="Numeral Date" 
-    dateFormat={['dd','mm','yyyy']} 
-    errorPresent
-    errorMessage={'This is an error message. It alerts the user to an error.'}/>
+    dateFormat={['dd','mm','yyyy']}
+    inputIcon={'error'}
+    hasError
+    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
   </Story>
 </Preview>
 
-Custom Numeral Date Component has Error
+Date Component has Warning
 <Preview>
-  <Story name="Custom Numeral Date Error" parameters={{ info: { disable: true }}} >
+  <Story name="Date Component has Warning" parameters={{ info: { disable: true }}} >
     <NumeralDate 
     defaultValue="Numeral Date" 
-    dateFormat={['mm','dd','yyyy']} 
-    errorPresent
-    errorMessage={'This is an error message. It alerts the user to an error.'}/>
+    dateFormat={['dd','mm','yyyy']}
+    inputIcon={'warning'} 
+    hasWarning
+    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
+  </Story>
+</Preview>
+
+Date Component has Info
+<Preview>
+  <Story name="Date Component has Info" parameters={{ info: { disable: true }}} >
+    <NumeralDate 
+    defaultValue="Numeral Date" 
+    dateFormat={['dd','mm','yyyy']} 
+    inputIcon={'info'} 
+    hasInfo
+    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
   </Story>
 </Preview>
 

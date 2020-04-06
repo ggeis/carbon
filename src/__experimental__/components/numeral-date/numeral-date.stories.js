@@ -3,6 +3,7 @@ import {
   array,
   boolean,
   withKnobs,
+  select,
   text
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
@@ -24,6 +25,13 @@ export default {
 export const Basic = () => {
   const [dateValue, setDateValue] = useState({});
   const dateFormat = array('dateFormat', NumeralDate.defaultProps.dateFormat);
+  /* iconOption is only here for testing purposes whilst props for
+  textbox Formik integration are being put through review and QA */
+  const iconOptions = {
+    error: 'error',
+    warning: 'warning',
+    info: 'info'
+  };
 
 
   const handleChange = (ev, itemId) => {
@@ -38,8 +46,13 @@ export const Basic = () => {
   return (
     <NumeralDate
       onChange={ handleChange }
-      errorPresent={ boolean('errorPresent') }
-      errorMessage={ text('errorMessage', 'Invalid format (DD/MM/YYYY)') }
+      /* hasWarning, hasError, hasInfo are only here until the
+      validation prop is properly introduced */
+      hasWarning={ boolean('hasWarning') }
+      hasError={ boolean('hasError') }
+      hasInfo={ boolean('hasInfo') }
+      inputIcon={ select('icon', iconOptions) }
+      tooltipMessage={ text('tooltipMessage', 'This is the tooltip Message') }
       onBlur={ handleBlur }
       dateFormat={ dateFormat }
       value={ dateValue }

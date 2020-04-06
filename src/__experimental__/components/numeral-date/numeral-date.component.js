@@ -8,12 +8,15 @@ import Textbox from '../textbox';
 const NumeralDate = ({
   dateFormat,
   defaultValue,
-  errorMessage,
-  errorPresent,
+  hasError,
+  hasInfo,
+  hasWarning,
   id,
+  inputIcon,
   name,
   onBlur,
   onChange,
+  tooltipMessage,
   value
 }) => {
   const isControlled = value !== undefined;
@@ -83,19 +86,18 @@ const NumeralDate = ({
               isMiddle={ textboxNumber === 1 }
               isEnd={ isEnd }
               twoPartDate={ textboxNumber <= 1 }
-              errorPresent={ errorPresent }
               dateFormatLength={ dateFormat.length }
             >
               <Textbox
                 placeholder={ datePart }
                 value={ dateValue[datePart] }
                 onChange={ e => handleChange(e, datePart) }
-                hasError={ errorPresent }
                 onBlur={ handleBlur }
+                { ...{ hasError, hasWarning, hasInfo } }
                 {
-                ...(isEnd && errorPresent && {
-                  inputIcon: 'error',
-                  tooltipMessage: errorMessage
+                ...(isEnd && {
+                  inputIcon,
+                  tooltipMessage
                 })
                 }
               />
@@ -112,18 +114,24 @@ NumeralDate.propTypes = {
   dateFormat: PropTypes.arrayOf(PropTypes.string),
   /** Prop for `uncontrolled` use */
   defaultValue: PropTypes.object,
-  /** Prop for errorMessage string. */
-  errorMessage: PropTypes.string,
-  /** Prop for errorPresent. */
-  errorPresent: PropTypes.bool,
   /** Prop for `controlled` use */
   value: PropTypes.object,
+  /** Status of error validations */
+  hasError: PropTypes.bool,
+  /** Status of warnings */
+  hasWarning: PropTypes.bool,
+  /** Status of info */
+  hasInfo: PropTypes.bool,
   /** Prop for `onBlur` events */
   onBlur: PropTypes.func,
   /** Prop for `onChange` events */
   onChange: PropTypes.func,
   /** Prop for `id` events */
   id: PropTypes.string,
+  /** Prop for `inputIcon` events */
+  inputIcon: PropTypes.string,
+  /** Prop for `tooltipMessage` events */
+  tooltipMessage: PropTypes.string,
   /** Prop for `name` events */
   name: PropTypes.string,
   /** Prop for placeholder */
