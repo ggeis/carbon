@@ -2,6 +2,9 @@ import { numeralDateInputByPosition, numeralDateInput, numeralDateComponent } fr
 import { ERROR_TOOLTIP } from '../../locators/form/locators';
 
 const BORDER_RED_COLOR = 'rgb(199, 56, 79)';
+const FIRST_INPUT = 0;
+const SECOND_INPUT = 1;
+const THIRD_INPUT = 2;
 
 Then('Number Date component has {int} separate inputs', (index) => {
   for (let i = 0; i < index; ++i) {
@@ -15,7 +18,7 @@ Then('All {int} Numeral Date inputs have red border', (index) => {
       .and('have.css', 'border-bottom-color', BORDER_RED_COLOR)
       .and('have.css', 'border-left-color', BORDER_RED_COLOR)
       .and('have.css', 'border-right-color', BORDER_RED_COLOR)
-      .and('have.css', 'border-top-color', BORDER_RED_COLOR)
+      .and('have.css', 'border-top-color', BORDER_RED_COLOR);
     numeralDateInput().should('have.attr', 'aria-invalid', 'true');
   }
 });
@@ -29,10 +32,27 @@ Then('error icon is visible in third input', () => {
   numeralDateComponent().find(ERROR_TOOLTIP).should('be.visible');
 });
 
-Then('{int} Numeral Date input has golden border', (index) => {
-  numeralDateInputByPosition(index).parent().should('have.css', 'outline', '2px solid rgb(255, 181, 0)');
+Then('I click on first input', () => {
+  numeralDateInputByPosition(FIRST_INPUT).focus();
 });
 
-Then('I click on first input', () => {
-  numeralDateInputByPosition(0).focus();
+Then('I type numeral characters {string} in inputs', (text) => {
+  numeralDateInputByPosition(FIRST_INPUT).clear().type(text);
+  numeralDateInputByPosition(FIRST_INPUT).parent().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
+  numeralDateInputByPosition(SECOND_INPUT).clear().type(text);
+  numeralDateInputByPosition(SECOND_INPUT).parent().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
+  numeralDateInputByPosition(THIRD_INPUT).clear().type(text);
+  numeralDateInputByPosition(THIRD_INPUT).parent().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
+});
+
+Then('I type no numeral characters {string} in inputs', (text) => {
+  numeralDateInputByPosition(FIRST_INPUT).clear().type(text);
+  numeralDateInputByPosition(SECOND_INPUT).clear().type(text);
+  numeralDateInputByPosition(THIRD_INPUT).clear().type(text);
+});
+
+Then('inputs have value {string}', (text) => {
+  numeralDateInputByPosition(FIRST_INPUT).should('have.value', text);
+  numeralDateInputByPosition(SECOND_INPUT).should('have.value', text);
+  numeralDateInputByPosition(THIRD_INPUT).should('have.value', text);
 });
