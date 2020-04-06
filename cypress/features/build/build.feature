@@ -39,7 +39,6 @@ Feature: Build tests
       | animated menu button             | animated-menu-button |
       | app wrapper                      | app-wrapper          |
       | button toggle                    | button-toggle        |
-      | button                           | button               |
       | carousel                         | carousel             |
       | card                             | card                 |
       | experimental-checkbox            | checkbox             |
@@ -89,6 +88,11 @@ Feature: Build tests
       | tile                             | tile                 |
       | toast                            | toast                |
       | tooltip                          | tooltip              |
+
+  @build
+  Scenario: Component Button using Knobs story
+    When I open "Button" component page knobs in noIFrame
+    Then "button" component is visible
 
   @build
   Scenario Outline: Verify element in <component> component default page
