@@ -1,12 +1,14 @@
 import styled, { css } from 'styled-components';
-import { StyledFlatTableHeader } from './flat-table-header/flat-table-header.style';
+import StyledFlatTableHeader from './flat-table-header/flat-table-header.style';
 import StyledFlatTableRowHeader from './flat-table-row-header/flat-table-row-header.style';
 import StyledFlatTableHead from './flat-table-head/flat-table-head.style';
 
 const StyledFlatTableWrapper = styled.div`
   height: 100%;
 
-  ${({ colorTheme, styleOverride, theme }) => {
+  ${({
+    colorTheme, styleOverride, theme
+  }) => {
     switch (colorTheme) {
       case 'dark':
         return css`
@@ -27,8 +29,6 @@ const StyledFlatTableWrapper = styled.div`
         return css`
         ${StyledFlatTableHeader} {
           background-color: ${styleOverride || theme.flatTable.default.headerBackground};
-          position: sticky;
-          z-index: 1;
         }`;
     }
   }}

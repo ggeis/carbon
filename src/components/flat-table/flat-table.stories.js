@@ -9,7 +9,8 @@ import {
   FlatTableRow,
   FlatTableHeader,
   FlatTableRowHeader,
-  FlatTableCell
+  FlatTableCell,
+  FlatTableSortHeader
 } from '.';
 import Icon from '../icon';
 import guid from '../../utils/helpers/guid';
@@ -105,6 +106,9 @@ export const basic = () => {
 };
 
 export const Sortable = () => {
+  const hasStickyHead = boolean('hasStickyHead', false);
+  const colorTheme = select('colorTheme', [...OptionsHelper.flatTableThemes], 'transparent');
+
   const headData = ['Client', 'Total'];
   const bodyData = [{
     client: 'Jason Atkinson',
@@ -124,24 +128,81 @@ export const Sortable = () => {
   }];
 
   const [data, setData] = useState(bodyData);
+  const [sortType, setSortType] = useState('asc');
+  const sortByNumber = (dataToSort, sortByValue, type = 'asc') => {
+    const sortedData = dataToSort.sort((a, b) => {
+      if (type === 'asc') {
+        return a[sortByValue] - b[sortByValue];
+      }
+
+      if (type === 'desc') {
+        return b[sortByValue] - a[sortByValue];
+      }
+
+      return 0;
+    });
+
+    return sortedData;
+  };
+
+  const sortByString = (dataToSort, sortByValue, type = 'asc') => {
+    const sortedData = dataToSort.sort((a, b) => {
+      const nameA = a[sortByValue].toUpperCase();
+      const nameB = b[sortByValue].toUpperCase();
+
+      if (type === 'asc') {
+        if (nameA < nameB) {
+          return -1;
+        }
+
+        if (nameA > nameB) {
+          return 1;
+        }
+      }
+
+      if (type === 'desc') {
+        if (nameA > nameB) {
+          return -1;
+        }
+
+        if (nameA < nameB) {
+          return 1;
+        }
+      }
+
+      return 0;
+    });
+
+    return sortedData;
+  };
 
   const handleClick = (e) => {
-    console.log(e);
+    const sortByValue = e.toLowerCase();
+    let sortedData;
+
+    if (typeof data[0][sortByValue] === 'string') {
+      sortedData = sortByString(data, sortByValue, sortType);
+    }
+
+    if (typeof data[0][sortByValue] === 'number') {
+      sortedData = sortByNumber(data, sortByValue, sortType);
+    }
+
+    setData([...sortedData]);
+    setSortType(sortType === 'asc' ? 'desc' : 'asc');
   };
 
   return (
-    <FlatTable colorTheme='dark'>
+    <FlatTable hasStickyHead={ hasStickyHead } colorTheme={ colorTheme }>
       <FlatTableHead>
         <FlatTableRow>
           {
             headData.map((dataItem) => {
               return (
-                <FlatTableHeader onClick={ handleClick } key={ dataItem }>
+                <FlatTableSortHeader key={ dataItem } onClick={ () => handleClick(dataItem) }>
                   {dataItem}
-                  <Icon
-                    type='sort_down'
-                  />
-                </FlatTableHeader>
+                  <Icon type='sort_down' />
+                </FlatTableSortHeader>
               );
             })
           }

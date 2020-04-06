@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../../style/themes/base';
-import StyledIcon from '../../icon/icon.style';
 
 const StyledFlatTableHeader = styled.th`
   ${({ align, theme }) => css`
@@ -16,38 +15,12 @@ const StyledFlatTableHeader = styled.th`
     user-select: none;
     vertical-align: middle;
     white-space: nowrap;
-  `}
-`;
-
-const StyledFlatTableHeaderContent = styled.div`
-  display: inline-flex;
-  align-items: center;
-  padding-left: 2px;
-  
-  ${StyledIcon}{
-    width: 16px;
-    height: 16px;
-    padding-left: 8px;
-    color: ${({ theme }) => theme.flatTable.default.headerIconColor};
-  };
-
- ${({ onClick, theme }) => onClick && css`
-    border-bottom: 1px solid transparent;
-
-    :hover{
-      border-bottom: 1px solid #fff;
-      cursor: pointer;
-    };
-
-    :focus{
-      outline: 1px solid ${theme.colors.focus};
-    };
-
-  `} ;
+    transform: scale(0.999);
+  `};
 `;
 
 StyledFlatTableHeader.defaultProps = {
   theme: baseTheme
 };
 
-export { StyledFlatTableHeader, StyledFlatTableHeaderContent };
+export default StyledFlatTableHeader;

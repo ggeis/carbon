@@ -1,34 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import { StyledFlatTableHeader, StyledFlatTableHeaderContent } from './flat-table-header.style';
-import Events from '../../../utils/helpers/events';
+import StyledFlatTableHeader from './flat-table-header.style';
 
 const FlatTableHeader = ({
-  align, children, onClick
+  align, children
 }) => {
-  const handleKeyDown = (e) => {
-    if (Events.isEnterOrSpaceKey(e)) {
-      e.preventDefault();
-
-      return onClick(children);
-    }
-
-    return null;
-  };
-
   return (
     <StyledFlatTableHeader
       align={ align }
       data-element='flat-table-header'
     >
-      <StyledFlatTableHeaderContent
-        tabIndex={ 0 }
-        onKeyDown={ onClick ? handleKeyDown : null }
-        onClick={ onClick ? () => onClick(children) : null }
-      >
-        { children }
-      </StyledFlatTableHeaderContent>
+      { children }
     </StyledFlatTableHeader>
   );
 };
