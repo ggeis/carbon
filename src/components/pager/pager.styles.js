@@ -13,12 +13,12 @@ const PagerContainerStyles = styled.div`
   padding: 9px 24px;
   align-items: center;
   border-top-width: 0;
-  font-size: 13px;  
+  font-size: 13px;
   ${({ theme }) => {
     return theme.table && theme.colors && css`
-      border: 1px solid ${theme.table.selected};
+      border: 1px solid #CCD6DA;
       background-color: ${theme.table.zebra};
-      
+
       .common-input__input {
         &:active, :hover {
           border-color: ${theme.table.secondary};
@@ -96,28 +96,27 @@ const PagerLinkStyles = styled.button`
   padding: 0 4px;
   font-size: 13px;
   border-width: 0;
-  text-decoration: underline;
   background-color: transparent;
   cursor: pointer;
+  margin-left: 7px;
+  margin-right: 7px;
 
   ${({ theme }) => theme.pager && css`
     color: ${theme.pager.active};
 
     ${({ disabled }) => !disabled && css`
       &:hover {
-        color: ${theme.pager.hover};
+        text-decoration: underline;
       }
 
       &:focus {
-        outline: none;
-        background-color: ${theme.colors.focusedLinkBackground};
-        color: ${theme.pager.hover};
+        outline: solid 3px ${theme.colors.focus};
       }
     `}
   `}
- 
-  ${({ disabled, theme }) => disabled && css`
-    color: ${theme.pager.disabled};
+
+  ${({ disabled }) => disabled && css`
+    color: rgba(0, 0, 0, 0.3);
     cursor: not-allowed;
   `}
 `;

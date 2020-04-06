@@ -1,138 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from 'styled-components';
 import I18n from 'i18n-js';
 import {
   PagerNavigationStyles,
   PagerNavInnerStyles,
-  PagerNoSelectStyles,
-  PagerButtonWrapperStyles,
-  PagerLinkStyles
+  PagerNoSelectStyles
 } from './pager.styles';
-import Icon from '../icon';
-import NumberComponent from '../../__deprecated__/components/number';
 import NumberInput from '../../__experimental__/components/number';
 import Events from '../../utils/helpers/events';
-import baseTheme from '../../style/themes/base';
-import { isClassic } from '../../utils/helpers/style-helper';
+import PagerNavigationLink from './pager-navigation-link.component';
 
-const PagerNavigation = (props) => {
-  const {
-    theme, setCurrentThemeName, setCurrentPage, onPagination
-  } = props;
-
-  setCurrentThemeName(theme);
-
+const PagerNavigation = ({
+  currentPage,
+  pageSize,
+  totalRecords,
+  onFirst,
+  onPrevious,
+  onLast,
+  onNext,
+  setCurrentPage,
+  ...props
+}) => {
   const updatePageFromInput = (ev) => {
     let newPage = Math.abs(Number(ev.target.value));
 
     if (Number(newPage) === 0 || Number.isNaN(newPage)) newPage = '1';
-    else if (newPage > maxPages()) newPage = String(maxPages());
+    else if (newPage > maxPages()) newPage = maxPages();
 
-    onPagination(String(newPage), props.pageSize, 'input');
-    setCurrentPage(String(newPage));
+    setCurrentPage(newPage);
   };
 
   function maxPages() {
-    const totalRecordsCount = props.totalRecords >= 0 ? props.totalRecords : 0;
+    const totalRecordsCount = totalRecords >= 0 ? totalRecords : 0;
 
-    if (props.pageSize && props.pageSize !== '0' && totalRecordsCount > 0) {
-      return Math.ceil(totalRecordsCount / props.pageSize);
+    if (pageSize && pageSize !== '0' && totalRecordsCount > 0) {
+      return Math.ceil(totalRecordsCount / pageSize);
     }
     return 1;
   }
 
-  function navArrowChange(step) {
-    const newPage = String(Number(props.currentPage) + step);
-    const desc = step === 1 ? 'next' : 'previous';
-    onPagination(newPage, props.pageSize, desc);
-  }
-
-  function navArrow(step) {
-    const arrowProps = {
-      'data-element': 'next-page',
-      type: 'dropdown'
-    };
-
-    function disabled() {
-      if (maxPages() === 1) {
-        return true;
-      }
-      if (step === -1) {
-        return props.currentPage === '1';
-      }
-      return props.currentPage === String(maxPages());
-    }
-
-    return (
-      <PagerButtonWrapperStyles disabled={ disabled() } next={ step === 1 }>
-        <Icon
-          onClick={ () => {
-            if (!disabled()) { navArrowChange(step); }
-          } }
-          { ...arrowProps }
-        />
-      </PagerButtonWrapperStyles>
-    );
-  }
-
-  function navLink(type) {
-    const currentPage = Number(props.currentPage);
-    const navLinkConfig = {
-      first: {
-        text: I18n.t('pager.first', { defaultValue: 'First' }),
-        destination: '1'
-      },
-      last: {
-        text: I18n.t('pager.last', { defaultValue: 'Last' }),
-        destination: String(maxPages())
-      },
-      next: {
-        text: I18n.t('pager.next', { defaultValue: 'Next' }),
-        destination: String(currentPage + 1)
-      },
-      back: {
-        text: I18n.t('pager.previous', { defaultValue: 'Previous' }),
-        destination: String(currentPage - 1)
-      }
-    };
-
-    const { destination, text } = navLinkConfig[type];
-
-    const clickHandler = () => {
-      onPagination(destination, props.pageSize, type);
-    };
-
-    function disabled() {
-      if (maxPages() === 1) {
-        return true;
-      }
-      if (currentPage === 1) {
-        return type === 'back' || type === 'first';
-      }
-      if (currentPage === maxPages()) {
-        return type === 'next' || type === 'last';
-      }
-      return false;
-    }
-
-    return (
-      <PagerLinkStyles
-        disabled={ disabled() }
-        onClick={ !disabled() ? clickHandler : undefined }
-      >
-        { text }
-      </PagerLinkStyles>
-    );
-  }
-
   function handlePageInputChange(ev) {
-    setCurrentPage(ev.target.value);
+    setCurrentPage(Number(ev.target.value));
   }
 
   function currentPageInput() {
     const currentPageInputProps = {
-      value: props.currentPage,
+      value: currentPage,
       className: 'carbon-pager__current-page',
       'data-element': 'current-page',
       onChange: handlePageInputChange,
@@ -145,13 +58,6 @@ const PagerNavigation = (props) => {
       }
     };
 
-    if (isClassic(theme)) {
-      return (
-        <label>
-          <NumberComponent { ...currentPageInputProps } />
-        </label>
-      );
-    }
     return (
       <label>
         <NumberInput { ...currentPageInputProps } />
@@ -159,25 +65,25 @@ const PagerNavigation = (props) => {
     );
   }
 
-  if (isClassic(theme)) {
-    return (
-      <PagerNavigationStyles>
-        { navArrow(-1) }
-        <PagerNoSelectStyles>
-          { I18n.t('pager.page_x', { defaultValue: 'Page ' }) }
-        </PagerNoSelectStyles>
-        { currentPageInput() }
-        <PagerNoSelectStyles>
-          { I18n.t('pager.of_y', { defaultValue: ' of ' }) }{ maxPages() }
-        </PagerNoSelectStyles>
-        { navArrow(1) }
-      </PagerNavigationStyles>
-    );
-  }
+  const pagerNavigationLinkProps = {
+    currentPage,
+    pageSize,
+    totalRecords,
+    maxPages: maxPages()
+  };
+
   return (
-    <PagerNavigationStyles>
-      { navLink('first') }
-      { navLink('back') }
+    <PagerNavigationStyles { ...props }>
+      <PagerNavigationLink
+        type='first'
+        onClick={ onFirst }
+        { ...pagerNavigationLinkProps }
+      />
+      <PagerNavigationLink
+        type='previous'
+        onClick={ onPrevious }
+        { ...pagerNavigationLinkProps }
+      />
       <PagerNavInnerStyles>
         <PagerNoSelectStyles>
           { I18n.t('pager.page_x', { defaultValue: 'Page ' }) }
@@ -187,31 +93,33 @@ const PagerNavigation = (props) => {
           { I18n.t('pager.of_y', { defaultValue: ' of ' }) }{ maxPages() }
         </PagerNoSelectStyles>
       </PagerNavInnerStyles>
-      { navLink('next') }
-      { navLink('last') }
+      <PagerNavigationLink
+        type='next'
+        onClick={ onNext }
+        { ...pagerNavigationLinkProps }
+      />
+      <PagerNavigationLink
+        type='last'
+        onClick={ onLast }
+        { ...pagerNavigationLinkProps }
+      />
     </PagerNavigationStyles>
   );
 };
 
 PagerNavigation.propTypes = {
   /** Current visible page */
-  currentPage: PropTypes.string.isRequired,
+  currentPage: PropTypes.number.isRequired,
   /** Total number of records */
   totalRecords: PropTypes.number.isRequired,
   /** Pagination page size */
-  pageSize: PropTypes.string,
-  /** Function called when pager changes (PageSize, Current Page) */
-  onPagination: PropTypes.func.isRequired,
+  pageSize: PropTypes.number,
   /** Sets the current page being shown */
   setCurrentPage: PropTypes.func,
-  /** Current theme */
-  theme: PropTypes.object,
-  /** Callback for the current theme name */
-  setCurrentThemeName: PropTypes.func
+  onFirst: PropTypes.func,
+  onPrevious: PropTypes.func,
+  onNext: PropTypes.func,
+  onLast: PropTypes.func
 };
 
-PagerNavigation.defaultProps = {
-  theme: baseTheme
-};
-
-export default withTheme(PagerNavigation);
+export default PagerNavigation;

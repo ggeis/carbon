@@ -19,7 +19,8 @@ guid.mockImplementation(() => 'guid-12345');
 const pageSizeSelectionOptions = Immutable.fromJS([
   { id: '10', name: 10 },
   { id: '25', name: 25 },
-  { id: '50', name: 50 }
+  { id: '50', name: 50 },
+  { id: '100', name: 100 }
 ]);
 
 function render(props, renderType = mount) {
