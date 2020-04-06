@@ -186,17 +186,18 @@ Feature: Build tests
     When I open basic Test "<component>" component page in noIframe
     Then "<data-component>" component is visible
     Examples:
-      | component                | data-component      |
-      | Accordion                | accordion           |
-      | Anchornavigation         | anchor-navigation   |
-      | Badge                    | badge               |
-      | Batch Selection          | batch-selection     |
-      | Button Toggle Group      | button-toggle-group |
-      | duellingpicklist         | duelling-picklist   |
-      | Flat Table               | flat-table          |
-      | Grid                     | grid                |
-      | Popover Container        | popover-container   |
-      | Search                   | search              |
+      | component           | data-component      |
+      | Accordion           | accordion           |
+      | Anchornavigation    | anchor-navigation   |
+      | Badge               | badge               |
+      | Batch Selection     | batch-selection     |
+      | Button Toggle Group | button-toggle-group |
+      | duellingpicklist    | duelling-picklist   |
+      | Flat Table          | flat-table          |
+      | Grid                | grid                |
+      | Popover Container   | popover-container   |
+      | Numeral date        | numeral-date        |
+      | Search              | search              |
 
   @build
   Scenario: Component Draggable basic default page and verify data-element
