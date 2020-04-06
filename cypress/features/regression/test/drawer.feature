@@ -6,15 +6,14 @@ Feature: Drawer component
 
   @positive
   Scenario: Expanding Drawer
-    Given I click on Drawer arrow
+    When I click on Drawer arrow 1 time
     Then sidebar should have class open
       And toggle icon switched orientation to open
       And sidebar text is visible
 
   @positive
   Scenario: Collapsing Drawer
-    Given I click on Drawer arrow
-      And I click on Drawer arrow
+    When I click on Drawer arrow 2 times
     Then sidebar should have class closed
       And toggle icon switched orientation to closed
       And sidebar text is not visible

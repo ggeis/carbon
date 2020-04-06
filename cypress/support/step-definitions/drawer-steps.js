@@ -4,8 +4,10 @@ import {
   drawerSidebarContent,
 } from '../../locators/drawer';
 
-When('I click on Drawer arrow', () => {
-  drawerToggle().first().click();
+When('I click on Drawer arrow {int} time(s)', (count) => {
+  for (let i = 0; i < count; i++) {
+    drawerToggle().first().click();
+  }
 });
 
 Then('sidebar should have class {word}', (className) => {
@@ -13,11 +15,13 @@ Then('sidebar should have class {word}', (className) => {
 });
 
 Then('sidebar text is visible', () => {
-  drawerSidebarContent().find('li:nth-child(1)').should('have.text', 'link a').and('be.visible');
+  drawerSidebarContent().find('li:nth-child(1)').should('have.text', 'link a')
+    .and('be.visible');
 });
 
 Then('sidebar text is not visible', () => {
-  drawerSidebarContent().find('li:nth-child(1)').should('have.text', 'link a').and('not.be.visible');
+  drawerSidebarContent().find('li:nth-child(1)').should('have.text', 'link a')
+    .and('not.be.visible');
 });
 
 Then('toggle icon switched orientation to open', () => {
