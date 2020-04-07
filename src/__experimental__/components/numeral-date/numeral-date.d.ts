@@ -3,8 +3,11 @@ import * as React from 'react';
 export interface NumeralDateProps {
   defaultValue?: object;
   dateFormat?: array<string>;
-  errorMessage?: string;
-  errorPresent?: boolean;
+  tooltipMessage?: string;
+  hasError?: boolean;
+  hasInfo?: boolean;
+  hasWarning?: boolean;
+  inputIcon?: string;
   placeholder: string;
   value?: object;
   id?: string;
