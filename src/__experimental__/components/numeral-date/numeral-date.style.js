@@ -25,14 +25,12 @@ StyledNumeralDate.defaultProps = { theme: baseTheme };
 export const StyledDateField = styled.div`
 
 ${({
-    isYearInput, theme, isEnd, errorPresent, isMiddle, dateFormatLength
+    isYearInput, theme, isEnd, hasError, isMiddle, dateFormatLength
   }) => {
-    const yearInputOrError = isYearInput || (isEnd && errorPresent);
-    const borderColor = errorPresent ? theme.numeralDate.error : theme.numeralDate.passive;
+    const yearInputOrError = isYearInput || (isEnd && hasError);
 
     return css`
 
-      border-color: ${borderColor};
       ${StyledInput} {
           position: relative;
           width: ${(yearInputOrError ? '78px;' : '58px;')};
