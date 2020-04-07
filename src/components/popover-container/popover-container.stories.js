@@ -29,7 +29,7 @@ export const Basic = () => {
   const title = text('title', 'Popover Title');
   const iconType = select('iconType', [...OptionsHelper.icons], 'settings');
   const position = select('position', [...OptionsHelper.alignBinary], 'right');
-  const hasStickyTop = boolean('hasStickyTop', true);
+  const shouldcoverButton = boolean('shouldcoverButton', true);
 
   const [isOpen, setOpen] = useState(false);
   const iconRef = useRef(null);
@@ -50,7 +50,7 @@ export const Basic = () => {
         position={ position }
         isOpen={ isOpen }
         onClose={ handleClose }
-        hasStickyTop={ hasStickyTop }
+        shouldcoverButton={ shouldcoverButton }
         renderOpenComponent={ () => (
           <IconButton
             ref={ iconRef }
@@ -181,6 +181,7 @@ export const Filter = () => {
             </Button>
           </Badge>
         ) }
+        renderCloseComponent={ () => {} }
       >
         {renderCheckboxes()}
         <Button onClick={ applyFilters } style={ { margin: '20px 0' } }>Apply</Button>
@@ -195,14 +196,6 @@ export const UncontrolledPopoverContainer = () => {
     <div style={ storyStyle() }>
       <PopoverContainer
         title='How to use custom HTML element'
-        renderOpenComponent={ ({ handleClick }) => (
-          <button
-            type='button'
-            onClick={ handleClick }
-          >
-            Open here
-          </button>
-        ) }
       />
     </div>
   );
@@ -215,7 +208,7 @@ export const CustomElement = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleCloseButton = () => {
     setOpen(false);
   };
 
@@ -224,13 +217,21 @@ export const CustomElement = () => {
       <PopoverContainer
         title='How to use custom HTML element'
         isOpen={ isOpen }
-        onClose={ handleClose }
+        onClose={ handleCloseButton }
         renderOpenComponent={ () => (
           <button
             type='button'
             onClick={ handleClick }
           >
             Open here
+          </button>
+        ) }
+        renderCloseComponent={ ({ handleClose }) => (
+          <button
+            type='button'
+            onClick={ handleClose }
+          >
+            Close
           </button>
         ) }
       />
@@ -257,7 +258,7 @@ export const WithComplexContent = () => {
         title='Popover Container Title'
         isOpen={ isOpen }
         onClose={ handleClose }
-        hasStickyTop
+        shouldcoverButton
         renderOpenComponent={ () => (
           <IconButton
             ref={ iconRef }

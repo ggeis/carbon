@@ -110,8 +110,8 @@ describe('PopoverContainerContentStyle', () => {
     }, wrapper);
   });
 
-  it('should render correct style if `hasStickyTop`', () => {
-    const wrapper = mount(<PopoverContainerContentStyle hasStickyTop />);
+  it('should render correct style if `shouldCoverButton`', () => {
+    const wrapper = mount(<PopoverContainerContentStyle shouldCoverButton />);
 
     assertStyleMatch({
       top: '0'

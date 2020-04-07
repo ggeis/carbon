@@ -4,7 +4,9 @@ import { AlignBinaryType } from '../../utils/helpers/options-helper/options-help
 
 export interface PopoverContainerProps {
   /** The element that will open popover-container */
-  renderOpenComponent: React.ReactNode | Node;
+  renderOpenComponent?: React.ReactNode | Node;
+  /** The element that will close popover-container */
+  renderCloseComponent?: React.ReactNode | Node;
   /** The content of the popover-container */
   children?: React.ReactNode;
   /** Sets rendering position of dialog */
@@ -16,7 +18,7 @@ export interface PopoverContainerProps {
   /** if `true` the popover-container is open */
   isOpen?: boolean;
   /** if `true` the popover-container will cover open button */
-  hasStickyTop?: boolean;
+  shouldCoverButton?: boolean;
 }
 
 declare const PopoverContainer: React.FunctionComponent<PopoverContainerProps>;

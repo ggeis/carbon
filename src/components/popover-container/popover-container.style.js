@@ -28,7 +28,7 @@ const PopoverContainerContentStyle = styled.div`
   min-width: 300px;
   position: absolute;
   
-  ${({ hasStickyTop }) => hasStickyTop && 'top: 0'}
+  ${({ shouldCoverButton }) => shouldCoverButton && 'top: 0'}
 
   ${({ position }) => (position === 'left' ? 'right: 0' : 'left: 0')};
 
